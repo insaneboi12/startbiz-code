@@ -9,7 +9,7 @@ import CategoryPage from './pages/CategoryPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <ScrollToTop />
       <div className="min-h-screen">
         <Navbar />

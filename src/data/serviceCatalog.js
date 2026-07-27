@@ -1,3 +1,4 @@
+import { asset } from '../utils/asset';
 /** Mega-nav + service catalogue aligned to LegalWiz.in structure (no prices / competitor stats) */
 
 export function slugify(title) {
@@ -164,16 +165,16 @@ export const megaMenus = [
 ];
 
 const imageMap = {
-  'gst-registration': '/images/services/service-1.webp',
-  'limited-liability-partnership-registration': '/images/services/service-2.webp',
-  'shop-and-establishment-registration': '/images/services/service-3.webp',
-  'fssai-registration': '/images/services/service-4.webp',
-  'partnership-firm-registration': '/images/services/service-5.webp',
-  'udyam-msme-registration': '/images/services/service-6.webp',
-  'one-person-company-registration': '/images/services/service-7.webp',
-  'private-limited-company-registration': '/images/services/service-8.webp',
-  'trademark-registration': '/images/services/service-9.webp',
-  'import-export-code-registration': '/images/services/service-11.webp',
+  'gst-registration': asset('/images/services/service-1.webp'),
+  'limited-liability-partnership-registration': asset('/images/services/service-2.webp'),
+  'shop-and-establishment-registration': asset('/images/services/service-3.webp'),
+  'fssai-registration': asset('/images/services/service-4.webp'),
+  'partnership-firm-registration': asset('/images/services/service-5.webp'),
+  'udyam-msme-registration': asset('/images/services/service-6.webp'),
+  'one-person-company-registration': asset('/images/services/service-7.webp'),
+  'private-limited-company-registration': asset('/images/services/service-8.webp'),
+  'trademark-registration': asset('/images/services/service-9.webp'),
+  'import-export-code-registration': asset('/images/services/service-11.webp'),
 };
 
 const featuredSlugs = new Set(Object.keys(imageMap));
@@ -373,7 +374,7 @@ extraServices.forEach(({ cat, id, title }) => {
     catalogServices.push({
       id: nextId++,
       ...enrichService(title, id, cat, 'Additional Services'),
-      image: title === 'ISO Certification' ? '/images/services/service-10.webp' : undefined,
+      image: title === 'ISO Certification' ? asset('/images/services/service-10.webp') : undefined,
       featured: title === 'ISO Certification',
     });
   }
