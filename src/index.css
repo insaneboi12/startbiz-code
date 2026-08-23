@@ -5,10 +5,21 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    overflow-x: clip;
   }
 
   body {
-    @apply bg-brand-surface font-sans text-brand-text antialiased;
+    @apply max-w-[100vw] overflow-x-clip bg-brand-surface font-sans text-brand-text antialiased;
+  }
+
+  @media print {
+    header,
+    footer,
+    #contact,
+    a[aria-label='Chat on WhatsApp'] {
+      display: none !important;
+    }
   }
 }
 

@@ -33,8 +33,8 @@ export default function WhyChooseUs() {
             Why choose {brand.name} for business consulting
           </h2>
           <p className="body-muted mt-3 text-sm sm:text-base">
-            Trusted business consulting services with transparent fees, startup
-            consulting expertise, and reliable delivery across Maharashtra.
+            We first understand your business, then explain what may apply —
+            with a clear process and support across Maharashtra.
           </p>
         </div>
 

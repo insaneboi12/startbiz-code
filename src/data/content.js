@@ -4,6 +4,8 @@ import {
   getRelatedByCategory,
 } from './serviceCatalog';
 import { asset } from '../utils/asset';
+import { needPrompts } from './finder';
+import { STANDARD_PROCESS, pricingNote, serviceGuides } from './serviceGuides';
 
 export {
   allServices,
@@ -23,11 +25,11 @@ export const brand = {
   name: 'startbiz.in',
   shortName: 'StartBiz',
   domain: 'startbiz.in',
-  tagline: 'Business Consulting Services',
+  tagline: 'Business Begins Here.',
   seoTitle:
-    'startbiz.in | Business Consulting Services — Company Registration, GST & Compliance',
+    'startbiz.in | We Help You Choose the Right Registration for Your Business',
   seoDescription:
-    'startbiz.in offers business consulting services in India for company registration, GST registration, MSME, trademark, FSSAI, Shop Act, LLP and compliance across Maharashtra.',
+    'Do not register what you do not need. Startbiz helps you identify the right registrations, licences and compliances for your business in Maharashtra and India.',
   keywords: [
     'business consulting services',
     'business consulting India',
@@ -76,31 +78,31 @@ export const whatsappHref = getWhatsAppUrl();
 
 
 export const navLinks = [
-  { label: 'Home', to: '/' },
-  { label: 'About Us', to: '/#about' },
-  { label: 'Contact Us', to: '/#contact' },
+  { label: 'Find What I Need', to: '/finder' },
+  { label: 'Knowledge', to: '/knowledge' },
+  { label: 'Contact', to: '/#contact' },
 ];
 
 export const features = [
   {
-    title: '100% Hassle-Free Process',
+    title: 'We understand first',
     description:
-      'End-to-end business consulting services with clear steps and documentation support for company registration and compliance.',
+      'We start with your activity, owners and where you sell — not with a generic registration cart.',
   },
   {
-    title: 'Expert Startup Consulting',
+    title: 'We explain what may apply',
     description:
-      'Practical guidance from professionals who understand CSC, MSME, and startup consulting needs across India.',
+      'You see what is essential, useful, or only situation-dependent, with language that stays careful and accurate.',
   },
   {
-    title: 'Fast & Reliable Service',
+    title: 'We help you choose',
     description:
-      'Quick turnaround on GST registration, trademark filing, and licensing so you can focus on growing your business.',
+      'Structure, GST, licences and brand protection are compared against your facts before anything is filed.',
   },
   {
-    title: 'Affordable & Transparent Fees',
+    title: 'We support filing and after',
     description:
-      'Clear pricing for business consulting services with no hidden charges before you get started.',
+      'Documentation, application support and post-registration guidance so compliance does not stop at the certificate.',
   },
 ];
 
@@ -111,7 +113,7 @@ export const trustStats = [
   { value: '110+', label: 'Business Consulting Services' },
 ];
 
-export const aboutText = `Welcome to startbiz.in — your trusted partner for business consulting services in India. We empower entrepreneurs, startups, and MSMEs with end-to-end support for company registration, GST registration, trademark registration, Shop Act, FSSAI, LLP, and business compliance. From licensing to tax filing, our expert team guides you through every step so you can focus on growth. Whether you need startup consulting, MSME registration, or ongoing compliance support across Maharashtra, startbiz.in makes starting and managing your business simpler, faster, and more reliable.`;
+export const aboutText = `Welcome to startbiz.in. We help entrepreneurs, startups and MSMEs choose the right business structure, registrations and licences — and skip what they do not need. From GST and Udyam to FSSAI, Shop Act, trademark and company formation, our team explains applicability, benefits and next steps, then supports documentation and filing across Maharashtra. We do not sell registrations in isolation. We help you understand what your business may need, why it matters, and how to stay compliant as you grow.`;
 
 export const services = [
   {
@@ -429,8 +431,9 @@ export const gallery = [
 export function getServiceBySlug(slug) {
   const catalog = getCatalogServiceBySlug(slug);
   const detailed = services.find((service) => service.slug === slug);
+  let base;
   if (detailed && catalog) {
-    return {
+    base = {
       ...catalog,
       ...detailed,
       category: catalog.category || detailed.category,
@@ -440,8 +443,18 @@ export function getServiceBySlug(slug) {
       seoDescription: catalog.seoDescription,
       keywords: catalog.keywords,
     };
+  } else {
+    base = detailed || catalog;
   }
-  return detailed || catalog;
+  if (!base) return null;
+  const guide = serviceGuides[base.slug] || {};
+  return {
+    process: STANDARD_PROCESS,
+    ...base,
+    ...guide,
+    needPrompt: needPrompts[base.slug] || needPrompts[base.aliasOf],
+    pricingNote: guide.pricingNote || pricingNote,
+  };
 }
 
 export function getRelatedServices(slug, limit = 3) {

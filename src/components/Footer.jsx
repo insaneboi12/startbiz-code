@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { brand, megaMenus, navLinks, serviceCount, services } from '../data/content';
+import { brand, megaMenus, navLinks, services } from '../data/content';
 
 export default function Footer() {
   return (
@@ -15,10 +15,31 @@ export default function Footer() {
               />
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-white/70">
-              {brand.name} provides {serviceCount}+ business consulting services
-              for company registration, GST registration, trademark, MSME,
-              licensing, and compliance across Maharashtra and India.
+              {brand.name} helps you choose the right registrations, licences and
+              compliances — then supports filing across Maharashtra and India.
             </p>
+            <ul className="mt-4 space-y-2">
+              <li>
+                <Link to="/finder" className="text-sm text-white/75 hover:text-white">
+                  Find What I Need
+                </Link>
+              </li>
+              <li>
+                <Link to="/compare" className="text-sm text-white/75 hover:text-white">
+                  Compare structures
+                </Link>
+              </li>
+              <li>
+                <Link to="/knowledge" className="text-sm text-white/75 hover:text-white">
+                  Knowledge centre
+                </Link>
+              </li>
+              <li>
+                <Link to="/industries" className="text-sm text-white/75 hover:text-white">
+                  Industry solutions
+                </Link>
+              </li>
+            </ul>
           </div>
 
           <div>

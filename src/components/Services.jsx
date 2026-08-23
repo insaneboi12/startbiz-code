@@ -6,7 +6,6 @@ import {
   serviceCount,
   services,
   slugify,
-  whatsappHref,
 } from '../data/content';
 import ServiceSearch from './ServiceSearch';
 
@@ -89,12 +88,20 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  to={`/services/${service.slug}`}
-                  className="mt-5 inline-flex text-sm font-semibold text-brand-primary transition hover:text-brand-accent"
-                >
-                  View details →
-                </Link>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <Link
+                    to={`/services/${service.slug}`}
+                    className="text-sm font-semibold text-brand-primary transition hover:text-brand-accent"
+                  >
+                    Learn benefits →
+                  </Link>
+                  <Link
+                    to={`/finder?need=${service.slug}`}
+                    className="text-sm font-semibold text-brand-accent hover:underline"
+                  >
+                    Do I need this?
+                  </Link>
+                </div>
               </div>
             </article>
           ))}
@@ -103,11 +110,10 @@ export default function Services() {
         <div className="mt-8 flex flex-col items-stretch justify-between gap-4 rounded-xl border border-dashed border-brand-primary/25 bg-brand-muted/70 px-5 py-6 text-center sm:mt-10 sm:flex-row sm:items-center sm:px-6 sm:py-8 sm:text-left">
           <div className="min-w-0">
             <h3 className="heading text-xl sm:text-2xl">
-              Need help choosing your business setup?
+              Not sure which of these you actually need?
             </h3>
             <p className="body-muted mt-1 text-sm">
-              Talk to our business consulting team and pick the right company
-              registration path for your goals.
+              Use the requirement finder, or talk to our team before you file.
             </p>
           </div>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-end">
@@ -118,14 +124,9 @@ export default function Services() {
             >
               {showAllFeatured ? 'Show Less' : `Show Featured (${services.length})`}
             </button>
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-              className="btn-primary w-full sm:w-auto"
-            >
-              Get Started
-            </a>
+            <Link to="/finder" className="btn-primary w-full sm:w-auto">
+              Find What I Need
+            </Link>
           </div>
         </div>
 

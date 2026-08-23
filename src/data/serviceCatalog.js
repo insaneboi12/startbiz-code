@@ -14,6 +14,7 @@ export const megaMenus = [
   {
     id: 'start-business',
     label: 'Start a Business',
+    shortLabel: 'Start',
     path: '/category/start-business',
     description:
       'Company registration and business formation services for startups and MSMEs across India.',
@@ -44,7 +45,8 @@ export const megaMenus = [
   },
   {
     id: 'intellectual-property',
-    label: 'Intellectual Property',
+    label: 'Protect Your Business',
+    shortLabel: 'Protect',
     path: '/category/intellectual-property',
     description:
       'Protect your brand, inventions, and creative works with trademark, patent, and copyright support.',
@@ -76,6 +78,7 @@ export const megaMenus = [
   {
     id: 'business-change',
     label: 'Change in Business',
+    hideFromNav: true,
     path: '/category/business-change',
     description:
       'Convert, update, or close your business structure with guided compliance support.',
@@ -125,7 +128,8 @@ export const megaMenus = [
   },
   {
     id: 'registrations-filings',
-    label: 'Registrations & Filings',
+    label: 'Registrations & Licences',
+    shortLabel: 'Registrations',
     path: '/category/registrations-filings',
     description:
       'GST, MSME, licences, tax filings and government registrations for compliant business growth.',
@@ -135,29 +139,62 @@ export const megaMenus = [
       'GST registration, MSME, FSSAI, IEC, Shop Act, DSC and tax filing support from startbiz.in business consulting services across Maharashtra.',
     groups: [
       {
-        label: 'Government Registration',
+        label: 'Government Registrations',
         items: [
           'GST Registration',
-          'Import Export Code Registration',
-          'Startup India Registration',
-          'LUT under GST',
           'Udyam MSME Registration',
           'Shop & Establishment Registration',
           'Professional Tax Registration',
           'PAN Application',
           'TAN Application',
-          'FSSAI Registration',
+          'Startup India Registration',
+          'LUT under GST',
           'ESI Registration',
           'DSC Registration',
         ],
       },
       {
-        label: 'Tax Filing',
+        label: 'Business Licences',
+        items: [
+          'FSSAI Registration',
+          'Import Export Code Registration',
+          'Trade License',
+          'ISO Certification',
+          'Drug License',
+          'EPF Registration',
+        ],
+      },
+      {
+        label: 'Tax & Compliance',
         items: [
           'GST Return Filing',
           'ITR Filing',
           'e-Way Bill',
           'TDS Return Filing',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'grow-your-business',
+    label: 'Grow Your Business',
+    shortLabel: 'Grow',
+    path: '/category/grow-your-business',
+    description:
+      'Advisory, funding, branding and expansion support after the right registrations are in place.',
+    seoTitle: 'Grow Your Business | Consultancy, Funding & Expansion | startbiz.in',
+    seoDescription:
+      'Business consultancy, plans, funding assistance, branding and expansion support from startbiz.in — after you know which registrations actually apply.',
+    groups: [
+      {
+        label: 'Advisory & Expansion',
+        items: [
+          'Business Consultancy',
+          'Business Plan Preparation',
+          'Funding Assistance',
+          'Branding & Digital Marketing',
+          'Business Process Support',
+          'Franchise & Business Expansion',
         ],
       },
     ],
@@ -305,6 +342,36 @@ const contentTemplates = {
       'Prepare and submit application / return',
       'Track status with the department',
       'Share approval / acknowledgement',
+    ],
+  },
+  'grow-your-business': {
+    about: (title) =>
+      `${title} supports businesses after the core structure and registrations are clear. startbiz.in helps with practical next steps — planning, visibility, funding conversations and expansion — subject to your stage and goals.`,
+    points: [
+      'Advice based on your current registrations and goals',
+      'Clearer next-step planning',
+      'Support beyond a one-time filing',
+      'Useful after the essential licences are mapped',
+      'Conversation-led, not a generic add-on bundle',
+    ],
+    whoCanApply: [
+      'Registered businesses planning to grow',
+      'Founders who already know their structure',
+      'Owners exploring funding or expansion',
+      'Operators who want process or brand support',
+    ],
+    documents: [
+      'Existing registration certificates (as available)',
+      'PAN / Aadhaar of stakeholders',
+      'Brief note on current activity and goals',
+      'Financial summary if funding is discussed',
+    ],
+    process: [
+      'Understand your current setup and goal',
+      'Identify gaps versus the growth plan',
+      'Recommend relevant next steps only',
+      'Support documentation where filing is needed',
+      'Review progress and compliance calendar',
     ],
   },
 };

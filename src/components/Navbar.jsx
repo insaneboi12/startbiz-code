@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { brand, megaMenus, navLinks, slugify, whatsappHref } from '../data/content';
+import { brand, megaMenus, navLinks, slugify } from '../data/content';
 import ServiceSearch from './ServiceSearch';
 
-function MegaDropdown({ menu, open, onOpen, onClose }) {
+function MegaDropdown({ menu, open, onOpen, onClose, align = 'left' }) {
   return (
     <div
       className="relative shrink-0"
@@ -18,10 +18,22 @@ function MegaDropdown({ menu, open, onOpen, onClose }) {
         onClick={() => (open ? onClose() : onOpen())}
         aria-expanded={open}
       >
-        {menu.label} ▾
+        {menu.shortLabel ? (
+          <>
+            <span className="2xl:hidden">{menu.shortLabel}</span>
+            <span className="hidden 2xl:inline">{menu.label}</span>
+          </>
+        ) : (
+          menu.label
+        )}{' '}
+        ▾
       </button>
       {open && (
-        <div className="absolute left-0 top-full z-50 w-[min(92vw,40rem)] pt-2 xl:left-1/2 xl:-translate-x-1/2">
+        <div
+          className={`absolute top-full z-50 w-[min(calc(100vw-2rem),40rem)] pt-2 ${
+            align === 'right' ? 'right-0' : 'left-0'
+          }`}
+        >
           <div className="rounded-xl border border-[#dbdbdb] bg-white p-4 shadow-soft">
             <div className="mb-3 flex items-center justify-between gap-3 border-b border-[#dbdbdb] pb-3">
               <div>
@@ -98,33 +110,37 @@ export default function Navbar() {
     };
   }, [open]);
 
+  const desktopMenus = megaMenus.filter((menu) => !menu.hideFromNav);
+  const headerLinks = navLinks.filter((link) => link.to !== '/finder');
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b border-[#dbdbdb]/80 bg-white transition ${
+      className={`fixed inset-x-0 top-0 z-50 overflow-visible border-b border-[#dbdbdb]/80 bg-white transition ${
         scrolled || open ? 'shadow-nav' : ''
       }`}
     >
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-3 px-3 sm:px-5 lg:h-[72px] lg:px-6">
-        <Link to="/" className="relative z-10 flex min-w-0 shrink-0 items-center">
+      <div className="flex h-[72px] w-full items-center gap-3 px-4 sm:h-20 sm:px-6 lg:gap-8 lg:px-8">
+        <Link to="/" className="relative z-20 mr-auto flex shrink-0 items-center xl:mr-6">
           <img
             src={brand.logo}
             alt={`${brand.name} — ${brand.tagline}`}
-            className="h-9 w-auto max-w-[140px] object-contain sm:h-10 sm:max-w-[170px]"
+            className="h-[52px] w-auto object-contain object-left sm:h-16"
           />
         </Link>
 
-        <nav className="hidden min-w-0 flex-1 items-center justify-end gap-0.5 xl:flex 2xl:gap-1">
-          {megaMenus.map((menu) => (
+        <nav className="ml-auto hidden min-w-0 items-center justify-end gap-0.5 xl:flex 2xl:gap-1">
+          {desktopMenus.map((menu, index) => (
             <MegaDropdown
               key={menu.id}
               menu={menu}
+              align={index >= desktopMenus.length - 1 ? 'right' : 'left'}
               open={activeMenu === menu.id}
               onOpen={() => setActiveMenu(menu.id)}
               onClose={() => setActiveMenu(null)}
             />
           ))}
 
-          {navLinks.map((link) => (
+          {headerLinks.map((link) => (
             <NavLink
               key={link.to}
               to={link.to}
@@ -146,17 +162,15 @@ export default function Navbar() {
             </svg>
           </button>
 
-          <a
-            href={whatsappHref}
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            to="/finder"
             className="btn-primary ml-1 shrink-0 whitespace-nowrap px-3 py-2 text-[13px] 2xl:ml-2 2xl:px-5 2xl:py-2.5 2xl:text-sm"
           >
-            Get Started
-          </a>
+            Find What I Need
+          </Link>
         </nav>
 
-        <div className="flex items-center gap-2 xl:hidden">
+        <div className="ml-auto flex items-center gap-2 xl:hidden">
           <button
             type="button"
             aria-label="Open search"
@@ -211,7 +225,7 @@ export default function Navbar() {
         }`}
       >
         <nav className="section-wrap flex max-h-[calc(100svh-4rem)] flex-col gap-1 overflow-y-auto py-3 pb-6">
-          {megaMenus.map((menu) => (
+          {desktopMenus.map((menu) => (
             <div key={menu.id} className="border-b border-[#dbdbdb]/70 pb-2">
               <button
                 type="button"
@@ -266,14 +280,9 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <a
-            href={whatsappHref}
-            target="_blank"
-            rel="noreferrer"
-            className="btn-primary mt-2"
-          >
-            Get Started
-          </a>
+          <Link to="/finder" className="btn-primary mt-2">
+            Find What I Need
+          </Link>
           <a
             href={brand.phoneHref}
             className="mt-1 text-center text-sm font-semibold text-brand-primary"

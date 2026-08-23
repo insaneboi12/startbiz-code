@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { brand, whatsappHref } from '../data/content';
+import { brand, getWhatsAppUrl, whatsappHref } from '../data/content';
 
 const initialForm = {
   name: '',
@@ -20,6 +20,13 @@ export default function ContactForm() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const text = `Free consultation request
+Name: ${form.name}
+Phone: ${form.phone}
+Email: ${form.email}
+Service: ${form.service || 'Not specified'}
+Message: ${form.message}`;
+    window.open(getWhatsAppUrl(text), '_blank', 'noopener,noreferrer');
     setSubmitted(true);
     setForm(initialForm);
   };

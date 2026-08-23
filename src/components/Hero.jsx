@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { brand, serviceCount, whatsappHref } from '../data/content';
+import { brand, serviceCount } from '../data/content';
 import ServiceSearch from './ServiceSearch';
 
 const quickLinks = [
@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="hero-textured relative overflow-hidden pt-16 lg:pt-[72px]"
+      className="hero-textured relative overflow-hidden pt-[72px] sm:pt-20"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-40"
@@ -31,19 +31,19 @@ export default function Hero() {
           <img
             src={brand.logo}
             alt={`${brand.name} — ${brand.tagline}`}
-            className="mb-5 h-14 w-auto max-w-[280px] object-contain sm:h-16 sm:max-w-[320px]"
+            className="mb-5 h-12 w-auto max-w-[220px] object-contain object-left sm:h-14 sm:max-w-[280px] md:h-16 md:max-w-[320px]"
           />
           <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-brand-accent sm:text-base">
-            Starting &amp; Managing Your Business has never been easier!
+            {brand.tagline}
           </p>
           <h1 className="mt-2 max-w-xl font-display text-2xl font-semibold leading-snug tracking-tight text-brand-text sm:text-3xl md:text-[2.35rem] md:leading-tight">
-            India&apos;s All-In-One Platform for Company Registration, GST,
-            Trademark &amp; Compliance
+            Choose the right registration for your business — not every
+            registration.
           </h1>
           <p className="mt-4 max-w-lg text-sm leading-relaxed text-brand-text-soft sm:text-base">
-            {serviceCount}+ business consulting services for startups &amp;
-            MSMEs across Maharashtra — from company registration and GST to
-            trademark, licensing, and compliance.
+            Tell us what you are building. We help you see what may apply, why
+            it matters, and what can wait — then support GST, company setup,
+            licences and compliance across Maharashtra.
           </p>
 
           <div className="mt-6 max-w-xl">
@@ -51,16 +51,11 @@ export default function Hero() {
           </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-              className="btn-primary w-full sm:w-auto"
-            >
-              Get Started
-            </a>
-            <Link to="/#services" className="btn-outline w-full sm:w-auto">
-              Explore Services
+            <Link to="/finder" className="btn-primary w-full sm:w-auto">
+              Find What I Need
+            </Link>
+            <Link to="/#contact" className="btn-outline w-full sm:w-auto">
+              Get Free Consultation
             </Link>
           </div>
 

@@ -29,7 +29,7 @@ export default function CategoryPage() {
           .join(', ')}`}
       />
 
-      <section className="border-b border-[#dbdbdb] bg-white pt-16 lg:pt-[72px]">
+      <section className="border-b border-[#dbdbdb] bg-white pt-[72px] sm:pt-20">
         <div className="section-wrap py-10 sm:py-14">
           <nav className="mb-5 text-sm text-brand-text-soft">
             <Link to="/" className="hover:text-brand-primary">
@@ -47,14 +47,9 @@ export default function CategoryPage() {
             contact {brand.contactPerson} at {brand.phone}.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-              className="btn-primary w-full sm:w-auto"
-            >
-              Get Started
-            </a>
+            <Link to="/finder" className="btn-primary w-full sm:w-auto">
+              Find What I Need
+            </Link>
             <a href={brand.phoneHref} className="btn-outline w-full sm:w-auto">
               Call {brand.phone}
             </a>

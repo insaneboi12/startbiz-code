@@ -1,5 +1,6 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import Seo from '../components/Seo';
+import ConsultationCta from '../components/ConsultationCta';
 import {
   brand,
   getRelatedServices,
@@ -9,6 +10,7 @@ import {
   serviceCount,
   whatsappHref,
 } from '../data/content';
+import { STANDARD_PROCESS } from '../data/serviceGuides';
 
 function IncludedTable({ points, title }) {
   if (!points?.length) return null;
@@ -176,9 +178,9 @@ export default function ServiceDetail() {
         keywords={pageKeywords}
       />
 
-      <section className="border-b border-[#dbdbdb] bg-white pt-16 lg:pt-[72px]">
+      <section className="border-b border-[#dbdbdb] bg-white pt-[72px] sm:pt-20">
         <div className="section-wrap py-8 sm:py-12 lg:py-14">
-          <nav className="mb-5 text-sm text-brand-text-soft">
+          <nav className="mb-5 flex flex-wrap items-center text-sm text-brand-text-soft">
             <Link to="/" className="hover:text-brand-primary">
               Home
             </Link>
@@ -199,9 +201,14 @@ export default function ServiceDetail() {
               {service.group && (
                 <p className="section-label">{service.group}</p>
               )}
-              <h1 className="heading mt-2 text-3xl sm:text-4xl lg:text-[2.75rem]">
+              <h1 className="heading mt-2 break-words text-2xl sm:text-3xl lg:text-4xl">
                 {service.title}
               </h1>
+              {service.needPrompt && (
+                <p className="mt-3 text-sm font-semibold text-brand-accent">
+                  {service.needPrompt.question}
+                </p>
+              )}
               <p className="mt-4 text-sm leading-relaxed text-brand-text-soft sm:text-base">
                 {service.summary}
               </p>
@@ -216,17 +223,23 @@ export default function ServiceDetail() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Link
+                  to={`/finder?need=${service.slug}`}
+                  className="btn-primary w-full sm:w-auto"
+                >
+                  Check if I need this
+                </Link>
+                <a href="#contact" className="btn-outline w-full sm:w-auto">
+                  Talk to an expert
+                </a>
                 <a
                   href={whatsappHref}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn-primary w-full sm:w-auto"
+                  className="btn-outline w-full sm:w-auto"
                 >
-                  Get Started
-                </a>
-                <a href={brand.phoneHref} className="btn-outline w-full sm:w-auto">
-                  Call {brand.phone}
+                  WhatsApp
                 </a>
               </div>
 
@@ -275,7 +288,7 @@ export default function ServiceDetail() {
             What is {service.title}?
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-brand-text-soft sm:text-base">
-            {service.about || service.summary}
+            {service.whatIsIt || service.about || service.summary}
           </p>
         </div>
       </section>
@@ -285,13 +298,13 @@ export default function ServiceDetail() {
       <ChecklistSection
         label="Benefits"
         title={`Benefits of ${service.title}`}
-        items={service.points}
+        items={service.benefits || service.points}
       />
 
       <ChecklistSection
-        label="Eligibility"
-        title={`Who can apply for ${service.title}?`}
-        items={service.whoCanApply}
+        label="Who may need it"
+        title={`Who may need ${service.title}?`}
+        items={service.whoNeedsIt || service.whoCanApply}
       />
 
       <ChecklistSection
@@ -307,12 +320,59 @@ export default function ServiceDetail() {
       />
 
       <ChecklistSection
-        label="Why needed"
-        title={`Why is ${service.title} important?`}
-        items={service.whyNeeded}
+        label="Why it can matter"
+        title={`Why ${service.title} can matter`}
+        items={
+          service.whyItMatters
+            ? [service.whyItMatters]
+            : service.whyNeeded
+        }
       />
 
-      <ProcessSteps process={service.process} title={service.title} />
+      {service.ifYouDont && (
+        <section className="bg-white py-12 sm:py-16">
+          <div className="section-wrap max-w-3xl">
+            <p className="section-label">If you do not have it</p>
+            <h2 className="heading mt-2 text-2xl sm:text-3xl">
+              What can happen if you skip this?
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-brand-text-soft sm:text-base">
+              {service.ifYouDont}
+            </p>
+            <p className="mt-3 text-xs text-brand-text-soft">
+              Applicable conditions may vary. This is general guidance, not a
+              legal determination.
+            </p>
+          </div>
+        </section>
+      )}
+
+      <ProcessSteps
+        process={service.process?.length ? service.process : STANDARD_PROCESS}
+        title={service.title}
+      />
+
+      <section className="bg-brand-surface py-12 sm:py-16">
+        <div className="section-wrap max-w-3xl">
+          <p className="section-label">Fees &amp; next step</p>
+          <h2 className="heading mt-2 text-2xl sm:text-3xl">
+            What should you do next?
+          </h2>
+          <p className="mt-4 text-sm leading-relaxed text-brand-text-soft sm:text-base">
+            {service.nextStep ||
+              'Check whether this actually applies to your activity, then talk to Startbiz before you file.'}
+          </p>
+          <p className="mt-3 text-sm text-brand-text-soft">{service.pricingNote}</p>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <Link to={`/finder?need=${service.slug}`} className="btn-primary">
+              Check my requirement
+            </Link>
+            <a href="#contact" className="btn-outline">
+              Talk to an expert
+            </a>
+          </div>
+        </div>
+      </section>
 
       <section className="bg-brand-primary py-10 text-white sm:py-12">
         <div className="section-wrap flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
@@ -338,6 +398,12 @@ export default function ServiceDetail() {
               Call {brand.phone}
             </a>
           </div>
+        </div>
+      </section>
+
+      <section className="py-12 sm:py-16">
+        <div className="section-wrap">
+          <ConsultationCta compact />
         </div>
       </section>
 
