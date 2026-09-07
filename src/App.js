@@ -1,18 +1,18 @@
-// import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import Navbar from './components/Navbar';
-// import Footer from './components/Footer';
-// import ScrollToTop from './components/ScrollToTop';
-// import ContactForm from './components/ContactForm';
-// import WhatsAppFloat from './components/WhatsAppFloat';
-// import Home from './pages/Home';
-// import ServiceDetail from './pages/ServiceDetail';
-// import CategoryPage from './pages/CategoryPage';
-// import FinderPage from './pages/FinderPage';
-// import ComparePage from './pages/ComparePage';
-// import KnowledgePage from './pages/KnowledgePage';
-// import KnowledgeArticle from './pages/KnowledgeArticle';
-// import IndustriesPage from './pages/IndustriesPage';
-// import IndustryDetail from './pages/IndustryDetail';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
+import ContactForm from './components/ContactForm';
+import WhatsAppFloat from './components/WhatsAppFloat';
+import Home from './pages/Home';
+import ServiceDetail from './pages/ServiceDetail';
+import CategoryPage from './pages/CategoryPage';
+import FinderPage from './pages/FinderPage';
+import ComparePage from './pages/ComparePage';
+import KnowledgePage from './pages/KnowledgePage';
+import KnowledgeArticle from './pages/KnowledgeArticle';
+import IndustriesPage from './pages/IndustriesPage';
+import IndustryDetail from './pages/IndustryDetail';
 
 function App() {
   return (
