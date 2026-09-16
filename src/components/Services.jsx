@@ -1,21 +1,21 @@
-import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   megaMenus,
   serviceCategories,
   serviceCount,
-  services,
   slugify,
 } from '../data/content';
+import { serviceSolutionGroups } from '../data/strategyContent';
 import ServiceSearch from './ServiceSearch';
+import { useMemo, useState } from 'react';
 
 export default function Services() {
-  const [showAllFeatured, setShowAllFeatured] = useState(false);
   const [activeCategory, setActiveCategory] = useState(serviceCategories[0].id);
-  const visible = showAllFeatured ? services : services.slice(0, 6);
 
   const activeCat = useMemo(
-    () => serviceCategories.find((c) => c.id === activeCategory) || serviceCategories[0],
+    () =>
+      serviceCategories.find((c) => c.id === activeCategory) ||
+      serviceCategories[0],
     [activeCategory]
   );
 
@@ -24,110 +24,62 @@ export default function Services() {
       <div className="section-wrap">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
-            <p className="section-label">Popular services</p>
+            <p className="section-label">Business registrations &amp; solutions</p>
             <h2 className="heading mt-2 text-2xl sm:text-3xl lg:text-4xl">
-              Bouquet of highly preferred services by MSMEs
+              Business Registrations &amp; Solutions
             </h2>
             <p className="body-muted mt-3 text-sm sm:text-base">
-              Explore {serviceCount}+ business consulting services — from GST
-              and company registration to trademark and compliance filings.
+              Explore GST registration, company registration, MSME, Shop Act,
+              FSSAI, trademark and {serviceCount}+ business consulting services —
+              grouped by what you want to achieve.
             </p>
           </div>
           <ServiceSearch variant="nav" className="w-full max-w-md" />
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-2">
-          {megaMenus.map((menu) => (
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {serviceSolutionGroups.map((group) => (
             <Link
-              key={menu.id}
-              to={menu.path}
-              className="rounded-full border border-brand-primary/20 bg-brand-muted px-4 py-2 text-sm font-semibold text-brand-primary transition hover:border-brand-accent hover:text-brand-accent"
+              key={group.title}
+              to={group.to}
+              className="rounded-xl border border-[#dbdbdb] bg-brand-surface p-5 transition hover:-translate-y-0.5 hover:border-brand-accent hover:shadow-soft sm:p-6"
             >
-              {menu.label}
+              <h3 className="font-display text-lg font-semibold text-brand-text">
+                {group.title}
+              </h3>
+              <p className="mt-2 text-sm text-brand-text-soft">{group.text}</p>
+              <span className="mt-4 inline-flex text-sm font-semibold text-brand-primary">
+                Explore →
+              </span>
             </Link>
-          ))}
-        </div>
-
-        <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-          {visible.map((service) => (
-            <article
-              key={service.id}
-              className="flex flex-col overflow-hidden rounded-xl border border-[#dbdbdb] bg-brand-surface transition duration-300 hover:-translate-y-1 hover:shadow-soft"
-            >
-              <Link to={`/services/${service.slug}`} className="bg-brand-muted p-3 sm:p-4">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="h-auto w-full object-contain transition duration-500 hover:scale-[1.02]"
-                  loading="lazy"
-                />
-              </Link>
-              <div className="flex flex-1 flex-col p-4 sm:p-5">
-                <p className="text-xs font-semibold uppercase tracking-wider text-brand-accent">
-                  {String(service.id).padStart(2, '0')}
-                </p>
-                <h3 className="mt-1 text-base font-semibold text-brand-text sm:text-lg">
-                  <Link
-                    to={`/services/${service.slug}`}
-                    className="hover:text-brand-primary"
-                  >
-                    {service.title}
-                  </Link>
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-brand-text-soft">
-                  {service.summary}
-                </p>
-                <ul className="mt-4 space-y-1.5">
-                  {service.points.slice(0, 3).map((point) => (
-                    <li
-                      key={point}
-                      className="flex gap-2 text-sm text-brand-text-soft"
-                    >
-                      <span className="mt-0.5 shrink-0 text-brand-green">✔</span>
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-5 flex flex-wrap gap-3">
-                  <Link
-                    to={`/services/${service.slug}`}
-                    className="text-sm font-semibold text-brand-primary transition hover:text-brand-accent"
-                  >
-                    Learn benefits →
-                  </Link>
-                  <Link
-                    to={`/finder?need=${service.slug}`}
-                    className="text-sm font-semibold text-brand-accent hover:underline"
-                  >
-                    Do I need this?
-                  </Link>
-                </div>
-              </div>
-            </article>
           ))}
         </div>
 
         <div className="mt-8 flex flex-col items-stretch justify-between gap-4 rounded-xl border border-dashed border-brand-primary/25 bg-brand-muted/70 px-5 py-6 text-center sm:mt-10 sm:flex-row sm:items-center sm:px-6 sm:py-8 sm:text-left">
           <div className="min-w-0">
-            <h3 className="heading text-xl sm:text-2xl">
-              Not sure which of these you actually need?
-            </h3>
+            <h3 className="heading text-xl sm:text-2xl">Need Something Else?</h3>
             <p className="body-muted mt-1 text-sm">
-              Use the requirement finder, or talk to our team before you file.
+              Tell us your requirement. We&apos;ll help you identify the right
+              solution.
             </p>
           </div>
-          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-end">
-            <button
-              type="button"
-              onClick={() => setShowAllFeatured((v) => !v)}
-              className="btn-outline w-full sm:w-auto"
-            >
-              {showAllFeatured ? 'Show Less' : `Show Featured (${services.length})`}
-            </button>
-            <Link to="/finder" className="btn-primary w-full sm:w-auto">
-              Find What I Need
-            </Link>
-          </div>
+          <a href="#contact" className="btn-primary w-full sm:w-auto">
+            Talk to Startbiz
+          </a>
+        </div>
+
+        <div className="mt-6 flex flex-wrap gap-2">
+          {megaMenus
+            .filter((menu) => !menu.hideFromNav)
+            .map((menu) => (
+              <Link
+                key={menu.id}
+                to={menu.path}
+                className="rounded-full border border-brand-primary/20 bg-brand-muted px-4 py-2 text-sm font-semibold text-brand-primary transition hover:border-brand-accent hover:text-brand-accent"
+              >
+                {menu.label}
+              </Link>
+            ))}
         </div>
 
         <div className="mt-12 sm:mt-14">
@@ -163,7 +115,10 @@ export default function Services() {
             ))}
           </div>
           <div className="mt-6 text-center">
-            <Link to={activeCat.path || `/category/${activeCat.id}`} className="btn-outline">
+            <Link
+              to={activeCat.path || `/category/${activeCat.id}`}
+              className="btn-outline"
+            >
               Open {activeCat.label} page →
             </Link>
           </div>

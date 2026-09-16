@@ -7,9 +7,9 @@ export default function About() {
       <div className="section-wrap">
         <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
           <div className="order-2 lg:order-1">
-            <p className="section-label">About us</p>
+            <p className="section-label">About Startbiz</p>
             <h2 className="heading mt-2 text-2xl sm:text-3xl lg:text-4xl">
-              Business consulting services that keep you compliant while you grow
+              Startbiz — Business Begins Here
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-brand-text-soft sm:text-base">
               {aboutText}

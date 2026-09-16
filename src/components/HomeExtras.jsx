@@ -1,49 +1,88 @@
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import RequirementFinder from './RequirementFinder';
 import ConsultationCta from './ConsultationCta';
 import {
+  askStartbizExamples,
   customerProcess,
   gstBenefitsPreview,
-  journeyEntryPoints,
+  intentPathways,
   journeySteps,
   packages,
+  serviceSolutionGroups,
   siteFaqs,
+  solutionBusinessTypes,
+  solutionGoals,
+  solutionRecommendations,
   structureComparison,
   structureGuide,
   whyDifferent,
 } from '../data/strategyContent';
 import { industries } from '../data/industries';
 import { knowledgeArticles } from '../data/knowledge';
-import { brand } from '../data/content';
+import { brand, getWhatsAppUrl } from '../data/content';
 
 function serviceHref(slug) {
   return slug.startsWith('/') ? slug : `/services/${slug}`;
+}
+
+function ChoiceChip({ active, children, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`rounded-lg border px-3 py-2 text-left text-sm font-medium transition ${
+        active
+          ? 'border-brand-primary bg-brand-primary text-white'
+          : 'border-[#dbdbdb] bg-white text-brand-text hover:border-brand-accent'
+      }`}
+    >
+      {children}
+    </button>
+  );
 }
 
 export function ProblemPathways() {
   return (
     <section id="problem" className="bg-white py-12 sm:py-16">
       <div className="section-wrap">
-        <p className="section-label">Start here</p>
+        <p className="section-label">What are you trying to do?</p>
         <h2 className="heading mt-2 max-w-2xl text-2xl sm:text-3xl lg:text-4xl">
-          Not sure which registration your business needs?
+          Starting or Growing a Business?
         </h2>
         <p className="body-muted mt-3 max-w-2xl text-sm sm:text-base">
-          Tell us what you are building. We will help you see what may apply,
-          why it matters, and what can wait — before you spend on filings.
+          Get the right registrations, licences and business solutions — without
+          the confusion. Choose a path below instead of searching through a long
+          service list.
         </p>
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-          {journeyEntryPoints.map((item) => (
-            <Link
-              key={item.title}
-              to={item.to}
-              className="rounded-xl border border-[#dbdbdb] bg-brand-surface p-4 transition hover:-translate-y-0.5 hover:border-brand-accent hover:shadow-soft"
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {intentPathways.map((path) => (
+            <article
+              key={path.id}
+              className={`rounded-xl border p-5 sm:p-6 ${path.accent}`}
             >
-              <h3 className="font-semibold text-brand-text">{item.title}</h3>
-              <p className="mt-2 text-sm font-semibold text-brand-primary">
-                {item.action} →
-              </p>
-            </Link>
+              <h3 className="font-display text-lg font-semibold text-brand-text sm:text-xl">
+                {path.title}
+              </h3>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {path.items.map((item) => (
+                  <li key={`${path.id}-${item.label}`}>
+                    <Link
+                      to={serviceHref(item.slug)}
+                      className="inline-flex rounded-md border border-white/80 bg-white/90 px-2.5 py-1 text-xs font-semibold text-brand-primary transition hover:border-brand-accent hover:text-brand-accent"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to={path.to}
+                className="mt-5 inline-flex text-sm font-semibold text-brand-primary hover:text-brand-accent"
+              >
+                {path.cta} →
+              </Link>
+            </article>
           ))}
         </div>
       </div>
@@ -51,17 +90,137 @@ export function ProblemPathways() {
   );
 }
 
+export function SolutionFinderSection() {
+  const [businessType, setBusinessType] = useState('');
+  const [goal, setGoal] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const results = useMemo(() => {
+    if (!goal) return [];
+    return solutionRecommendations[goal] || [];
+  }, [goal]);
+
+  const onFind = (e) => {
+    e.preventDefault();
+    if (!businessType || !goal) return;
+    setSubmitted(true);
+  };
+
+  return (
+    <section id="solution-finder" className="bg-brand-surface py-12 sm:py-16 lg:py-20">
+      <div className="section-wrap">
+        <p className="section-label">Not sure what registration you need?</p>
+        <h2 className="heading mt-2 max-w-2xl text-2xl sm:text-3xl lg:text-4xl">
+          Don&apos;t worry. Tell us about your business.
+        </h2>
+        <p className="body-muted mt-3 max-w-2xl text-sm sm:text-base">
+          Answer two questions. We&apos;ll suggest GST, MSME, Shop Act, FSSAI,
+          trademark or company registration options that often apply — then you
+          can talk to Startbiz to confirm.
+        </p>
+
+        <form
+          onSubmit={onFind}
+          className="mt-8 rounded-xl border border-[#dbdbdb] bg-white p-5 shadow-soft sm:p-7"
+        >
+          <fieldset>
+            <legend className="text-sm font-semibold text-brand-text sm:text-base">
+              What type of business are you planning?
+            </legend>
+            <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {solutionBusinessTypes.map((type) => (
+                <ChoiceChip
+                  key={type}
+                  active={businessType === type}
+                  onClick={() => {
+                    setBusinessType(type);
+                    setSubmitted(false);
+                  }}
+                >
+                  {type}
+                </ChoiceChip>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset className="mt-8">
+            <legend className="text-sm font-semibold text-brand-text sm:text-base">
+              What do you want to do?
+            </legend>
+            <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {solutionGoals.map((item) => (
+                <ChoiceChip
+                  key={item}
+                  active={goal === item}
+                  onClick={() => {
+                    setGoal(item);
+                    setSubmitted(false);
+                  }}
+                >
+                  {item}
+                </ChoiceChip>
+              ))}
+            </div>
+          </fieldset>
+
+          <button
+            type="submit"
+            className="btn-primary mt-8 w-full sm:w-auto"
+            disabled={!businessType || !goal}
+          >
+            Find My Required Registrations
+          </button>
+        </form>
+
+        {submitted && results.length > 0 && (
+          <div className="mt-6 rounded-xl border border-brand-primary/20 bg-white p-5 sm:p-6">
+            <h3 className="font-semibold text-brand-text">
+              Suggested starting points for a {businessType.toLowerCase()} looking
+              to {goal.toLowerCase()}
+            </h3>
+            <p className="mt-2 text-sm text-brand-text-soft">
+              Guidance only — final requirements depend on your activity and
+              location. Talk to Startbiz to confirm.
+            </p>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              {results.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    to={serviceHref(item.slug)}
+                    className="flex items-center justify-between rounded-lg border border-[#dbdbdb] px-4 py-3 text-sm font-semibold text-brand-primary transition hover:border-brand-accent"
+                  >
+                    <span>{item.label}</span>
+                    <span aria-hidden>→</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+              <Link to="/finder" className="btn-primary">
+                Get a fuller roadmap
+              </Link>
+              <a href="#contact" className="btn-outline">
+                Get My Business Solution
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 export function FinderSection() {
   return (
-    <section id="finder" className="bg-brand-surface py-12 sm:py-16 lg:py-20">
+    <section id="finder" className="bg-white py-12 sm:py-16 lg:py-20">
       <div className="section-wrap">
         <p className="section-label">Business requirement finder</p>
         <h2 className="heading mt-2 text-2xl sm:text-3xl">
-          Find what your business may need
+          Need a more detailed roadmap?
         </h2>
         <p className="body-muted mt-3 max-w-2xl text-sm sm:text-base">
-          Answer a few questions. We will group items as essential, recommended,
-          or depending on your activity. This is guidance, not a legal order.
+          Answer a few questions. We will group GST, licences and registrations
+          as essential, recommended, or depending on your activity.
         </p>
         <div className="mt-8">
           <RequirementFinder embedded />
@@ -75,22 +234,72 @@ export function JourneySection() {
   return (
     <section id="journey" className="bg-white py-12 sm:py-16">
       <div className="section-wrap">
-        <p className="section-label">From idea to growth</p>
+        <p className="section-label">Business journey</p>
         <h2 className="heading mt-2 text-2xl sm:text-3xl">
-          Startbiz is with you at each stage
+          From Idea to Business Growth — We&apos;re With You
         </h2>
         <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {journeySteps.map((step) => (
+          {journeySteps.map((step, index) => (
             <li
               key={step.n}
-              className="rounded-xl border border-[#dbdbdb] bg-brand-surface p-5"
+              className="relative rounded-xl border border-[#dbdbdb] bg-brand-surface p-5"
             >
               <span className="text-xs font-bold text-brand-accent">{step.n}</span>
               <h3 className="mt-2 font-semibold text-brand-text">{step.title}</h3>
               <p className="mt-2 text-sm text-brand-text-soft">{step.text}</p>
+              {index < journeySteps.length - 1 && (
+                <span className="mt-3 inline-block text-brand-accent lg:hidden">
+                  ↓
+                </span>
+              )}
             </li>
           ))}
         </ol>
+      </div>
+    </section>
+  );
+}
+
+export function AskStartbizSection() {
+  return (
+    <section id="ask-startbiz" className="bg-brand-surface py-12 sm:py-16">
+      <div className="section-wrap">
+        <p className="section-label">Ask Startbiz</p>
+        <h2 className="heading mt-2 text-2xl sm:text-3xl lg:text-4xl">
+          Have a Business Question?
+        </h2>
+        <p className="body-muted mt-3 max-w-2xl text-sm sm:text-base">
+          Ask Startbiz. Change your mindset from &quot;Which service should I
+          buy?&quot; to &quot;Startbiz can tell me what I need.&quot;
+        </p>
+        <ul className="mt-8 space-y-3">
+          {askStartbizExamples.map((example) => (
+            <li key={example}>
+              <a
+                href={getWhatsAppUrl(example)}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-start gap-3 rounded-xl border border-[#dbdbdb] bg-white px-4 py-3 text-sm text-brand-text transition hover:border-brand-accent hover:shadow-soft sm:text-base"
+              >
+                <span className="mt-0.5 text-brand-accent">“</span>
+                <span>{example}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a
+            href={getWhatsAppUrl(brand.whatsappMessage)}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary"
+          >
+            Ask Startbiz →
+          </a>
+          <a href="#contact" className="btn-outline">
+            Get My Business Solution
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -383,21 +592,24 @@ export function FinalCta() {
     <section className="bg-brand-primary py-12 text-white sm:py-16">
       <div className="section-wrap text-center">
         <h2 className="font-display text-2xl font-semibold sm:text-3xl">
-          Talk to Startbiz today
+          Startbiz — Business Begins Here
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-sm text-white/80 sm:text-base">
-          Tell us what you want to build. {brand.contactPerson} will help you
-          understand what your business may need — then we can support the filing.
+          Tell us your business requirement. We&apos;ll help you find the right
+          registration, licence or business solution — for new entrepreneurs and
+          existing business owners across Maharashtra.
         </p>
         <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link to="/finder" className="btn-primary">
-            Find What I Need
+            Find My Business Solution
           </Link>
           <a href="#contact" className="btn-ghost-light">
-            Get free consultation
+            Talk to a Business Expert
           </a>
         </div>
       </div>
     </section>
   );
 }
+
+export { serviceSolutionGroups };

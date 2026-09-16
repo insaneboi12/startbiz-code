@@ -1,12 +1,36 @@
 import { useState } from 'react';
 import { brand, getWhatsAppUrl, whatsappHref } from '../data/content';
 
+const helpOptions = [
+  'Start a Business',
+  'GST',
+  'FSSAI',
+  'Trademark',
+  'Company Registration',
+  'Shop Act',
+  'MSME/Udyam',
+  'GeM',
+  'Import Export',
+  'Not Sure',
+];
+
+const businessTypes = [
+  'Food Business',
+  'Shop / Retail',
+  'Service Business',
+  'Manufacturing',
+  'Online Business',
+  'Freelancer',
+  'Trader / Wholesaler',
+  'Professional',
+  'Other',
+];
+
 const initialForm = {
   name: '',
-  email: '',
   phone: '',
-  service: '',
-  message: '',
+  businessType: '',
+  needHelp: '',
 };
 
 export default function ContactForm() {
@@ -20,12 +44,11 @@ export default function ContactForm() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const text = `Free consultation request
+    const text = `Get Your Business Solution
 Name: ${form.name}
-Phone: ${form.phone}
-Email: ${form.email}
-Service: ${form.service || 'Not specified'}
-Message: ${form.message}`;
+Mobile: ${form.phone}
+Business Type: ${form.businessType || 'Not specified'}
+Need help with: ${form.needHelp || 'Not Sure'}`;
     window.open(getWhatsAppUrl(text), '_blank', 'noopener,noreferrer');
     setSubmitted(true);
     setForm(initialForm);
@@ -39,13 +62,14 @@ Message: ${form.message}`;
       <div className="section-wrap">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <div>
-            <p className="section-label">Contact us</p>
+            <p className="section-label">Lead generation</p>
             <h2 className="heading mt-2 text-2xl sm:text-3xl lg:text-4xl">
-              Have questions? Speak with a business consulting specialist
+              Get Your Business Solution
             </h2>
             <p className="body-muted mt-3 text-sm sm:text-base">
-              Share your requirement and our team will guide you with the right
-              company registration, GST, or compliance path.
+              Share what you need help with — GST, company registration, Shop
+              Act, MSME, FSSAI, trademark, GeM or Import Export — and our team
+              will guide you to the right path.
             </p>
 
             <div className="mt-6 space-y-3 sm:mt-8 sm:space-y-4">
@@ -94,9 +118,7 @@ Message: ${form.message}`;
                   <p className="text-xs font-semibold uppercase tracking-wide text-brand-text-soft">
                     WhatsApp
                   </p>
-                  <p className="font-semibold text-brand-text">
-                    Chat with {brand.contactPerson}
-                  </p>
+                  <p className="font-semibold text-brand-text">Talk to Startbiz</p>
                 </div>
               </a>
             </div>
@@ -134,7 +156,7 @@ Message: ${form.message}`;
             onSubmit={onSubmit}
             className="rounded-xl border border-[#dbdbdb] bg-brand-surface p-5 shadow-soft sm:p-7 lg:p-8"
           >
-            <h3 className="heading text-xl sm:text-2xl">Send us a message</h3>
+            <h3 className="heading text-xl sm:text-2xl">Get Your Business Solution</h3>
             <p className="mt-1 text-sm text-brand-text-soft">
               We typically respond within business hours.
             </p>
@@ -148,7 +170,7 @@ Message: ${form.message}`;
             <div className="mt-5 grid gap-4">
               <label className="block">
                 <span className="mb-1.5 block text-sm font-medium text-brand-text">
-                  Full name
+                  Name
                 </span>
                 <input
                   required
@@ -159,70 +181,59 @@ Message: ${form.message}`;
                   placeholder="Your name"
                 />
               </label>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="block">
-                  <span className="mb-1.5 block text-sm font-medium text-brand-text">
-                    Email
-                  </span>
-                  <input
-                    required
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={onChange}
-                    className={fieldClass}
-                    placeholder="you@example.com"
-                  />
-                </label>
-                <label className="block">
-                  <span className="mb-1.5 block text-sm font-medium text-brand-text">
-                    Phone
-                  </span>
-                  <input
-                    required
-                    name="phone"
-                    value={form.phone}
-                    onChange={onChange}
-                    className={fieldClass}
-                    placeholder="10-digit mobile"
-                  />
-                </label>
-              </div>
               <label className="block">
                 <span className="mb-1.5 block text-sm font-medium text-brand-text">
-                  Service interested in
+                  Mobile Number
+                </span>
+                <input
+                  required
+                  name="phone"
+                  value={form.phone}
+                  onChange={onChange}
+                  className={fieldClass}
+                  placeholder="10-digit mobile"
+                />
+              </label>
+              <label className="block">
+                <span className="mb-1.5 block text-sm font-medium text-brand-text">
+                  Business Type
                 </span>
                 <select
-                  name="service"
-                  value={form.service}
+                  required
+                  name="businessType"
+                  value={form.businessType}
                   onChange={onChange}
                   className={fieldClass}
                 >
-                  <option value="">Select a service</option>
-                  <option>GST Registration</option>
-                  <option>Private Limited Company</option>
-                  <option>LLP Registration</option>
-                  <option>Trademark Registration</option>
-                  <option>MSME Registration</option>
-                  <option>Other</option>
+                  <option value="">Select business type</option>
+                  {businessTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
                 </select>
               </label>
               <label className="block">
                 <span className="mb-1.5 block text-sm font-medium text-brand-text">
-                  Message
+                  What do you need help with?
                 </span>
-                <textarea
+                <select
                   required
-                  name="message"
-                  rows={4}
-                  value={form.message}
+                  name="needHelp"
+                  value={form.needHelp}
                   onChange={onChange}
-                  className={`${fieldClass} resize-y`}
-                  placeholder="Tell us briefly about your requirement"
-                />
+                  className={fieldClass}
+                >
+                  <option value="">Select an option</option>
+                  {helpOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
               </label>
               <button type="submit" className="btn-primary w-full">
-                Submit Enquiry
+                Get My Solution
               </button>
             </div>
           </form>

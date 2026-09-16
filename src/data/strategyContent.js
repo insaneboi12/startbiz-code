@@ -1,34 +1,193 @@
 export const journeySteps = [
   {
     n: '01',
-    title: 'Business idea',
-    text: 'Evaluate the model, owners and where you will sell before you file anything.',
+    title: 'Tell Us Your Requirement',
+    text: 'Share what you want to do — start, register, grow, protect your brand, or sell to government.',
   },
   {
     n: '02',
-    title: 'Choose structure',
-    text: 'Proprietorship, Partnership, LLP, OPC or Private Limited — based on people, liability and growth.',
+    title: 'We Understand Your Business',
+    text: 'We look at your business type, owners and goals before recommending any filing.',
   },
   {
     n: '03',
-    title: 'Obtain registrations',
-    text: 'GST, Udyam, Shop Act and other filings that actually apply to your activity.',
+    title: 'We Recommend the Right Solution',
+    text: 'You get clarity on registrations, licences and options that fit your situation.',
   },
   {
     n: '04',
-    title: 'Get licences',
-    text: 'FSSAI, trade licence, IEC or industry licences — only where your work requires them.',
+    title: 'We Handle the Registration Process',
+    text: 'Documentation, application support and follow-up with the concerned authorities.',
   },
   {
     n: '05',
-    title: 'Protect the brand',
-    text: 'Trademark and IP so your name and logo are not left unprotected.',
+    title: 'You Receive Your Documents',
+    text: 'Certificates and acknowledgements are shared with clear next-step guidance.',
   },
   {
     n: '06',
-    title: 'Stay compliant & grow',
-    text: 'GST/ITR/ROC as applicable, then consulting, funding and expansion support.',
+    title: 'Come Back When Your Business Grows',
+    text: 'Return for GST compliance, trademark, GeM, IEC or expansion support as you scale.',
   },
+];
+
+export const intentPathways = [
+  {
+    id: 'start',
+    accent: 'border-emerald-200 bg-emerald-50/60',
+    title: "I'm Starting a Business",
+    cta: 'Help Me Start',
+    to: '/finder?stage=start',
+    items: [
+      { label: 'Proprietorship', slug: 'sole-proprietorship-firm-registration' },
+      { label: 'Partnership', slug: 'partnership-firm-registration' },
+      { label: 'LLP', slug: 'limited-liability-partnership-registration' },
+      { label: 'Private Limited', slug: 'private-limited-company-registration' },
+      { label: 'OPC', slug: 'one-person-company-registration' },
+      { label: 'Shop Act', slug: 'shop-and-establishment-registration' },
+      { label: 'Udyam', slug: 'udyam-msme-registration' },
+      { label: 'GST', slug: 'gst-registration' },
+    ],
+  },
+  {
+    id: 'grow',
+    accent: 'border-sky-200 bg-sky-50/60',
+    title: 'I Already Have a Business',
+    cta: 'Help Me Grow',
+    to: '/finder?stage=running',
+    items: [
+      { label: 'GST', slug: 'gst-registration' },
+      { label: 'Shop Act', slug: 'shop-and-establishment-registration' },
+      { label: 'Udyam', slug: 'udyam-msme-registration' },
+      { label: 'FSSAI', slug: 'fssai-registration' },
+      { label: 'ISO', slug: 'iso-certification' },
+      { label: 'Trademark', slug: 'trademark-registration' },
+      { label: 'Import Export', slug: 'import-export-code-registration' },
+      { label: 'GeM', slug: '/#contact' },
+    ],
+  },
+  {
+    id: 'brand',
+    accent: 'border-orange-200 bg-orange-50/60',
+    title: 'I Want to Protect My Brand',
+    cta: 'Protect My Brand',
+    to: '/category/intellectual-property',
+    items: [
+      { label: 'Trademark Registration', slug: 'trademark-registration' },
+      { label: 'Brand Name Protection', slug: 'trademark-registration' },
+      { label: 'Logo Protection', slug: 'trademark-registration' },
+      { label: 'Business Identity', slug: '/category/intellectual-property' },
+    ],
+  },
+  {
+    id: 'government',
+    accent: 'border-violet-200 bg-violet-50/60',
+    title: 'I Want to Sell to Government',
+    cta: 'Explore Government Business',
+    to: '/#contact',
+    items: [
+      { label: 'GeM Registration', slug: '/#contact' },
+      { label: 'Import Export', slug: 'import-export-code-registration' },
+      { label: 'Business registrations', slug: '/finder' },
+      { label: 'Required documentation', slug: '/#contact' },
+    ],
+  },
+];
+
+export const solutionBusinessTypes = [
+  'Food Business',
+  'Shop / Retail',
+  'Service Business',
+  'Manufacturing',
+  'Online Business',
+  'Freelancer',
+  'Trader / Wholesaler',
+  'Professional',
+  'Other',
+];
+
+export const solutionGoals = [
+  'Start a Business',
+  'Register My Existing Business',
+  'Sell Online',
+  'Get Government Contracts',
+  'Protect My Brand',
+  'Get Food Licence',
+  'Make My Business Compliant',
+];
+
+export const solutionRecommendations = {
+  'Start a Business': [
+    { label: 'Company / firm structure', slug: '/category/start-business' },
+    { label: 'GST Registration', slug: 'gst-registration' },
+    { label: 'Udyam MSME', slug: 'udyam-msme-registration' },
+    { label: 'Shop Act', slug: 'shop-and-establishment-registration' },
+  ],
+  'Register My Existing Business': [
+    { label: 'GST Registration', slug: 'gst-registration' },
+    { label: 'Shop Act', slug: 'shop-and-establishment-registration' },
+    { label: 'Udyam MSME', slug: 'udyam-msme-registration' },
+    { label: 'Structure guidance', slug: '/compare' },
+  ],
+  'Sell Online': [
+    { label: 'GST Registration', slug: 'gst-registration' },
+    { label: 'Trademark', slug: 'trademark-registration' },
+    { label: 'Udyam MSME', slug: 'udyam-msme-registration' },
+    { label: 'IEC (if exporting)', slug: 'import-export-code-registration' },
+  ],
+  'Get Government Contracts': [
+    { label: 'GST Registration', slug: 'gst-registration' },
+    { label: 'Udyam MSME', slug: 'udyam-msme-registration' },
+    { label: 'Import Export Code', slug: 'import-export-code-registration' },
+    { label: 'GeM / documentation help', slug: '/#contact' },
+  ],
+  'Protect My Brand': [
+    { label: 'Trademark Registration', slug: 'trademark-registration' },
+    { label: 'Brand & logo protection', slug: '/category/intellectual-property' },
+  ],
+  'Get Food Licence': [
+    { label: 'FSSAI Registration', slug: 'fssai-registration' },
+    { label: 'GST Registration', slug: 'gst-registration' },
+    { label: 'Shop Act', slug: 'shop-and-establishment-registration' },
+    { label: 'Udyam MSME', slug: 'udyam-msme-registration' },
+  ],
+  'Make My Business Compliant': [
+    { label: 'GST Registration', slug: 'gst-registration' },
+    { label: 'Shop Act', slug: 'shop-and-establishment-registration' },
+    { label: 'Udyam MSME', slug: 'udyam-msme-registration' },
+    { label: 'Talk to Startbiz', slug: '/#contact' },
+  ],
+};
+
+export const serviceSolutionGroups = [
+  {
+    title: 'Start Your Business',
+    text: 'Proprietorship • Partnership • LLP • Pvt Ltd • OPC',
+    to: '/category/start-business',
+  },
+  {
+    title: 'Licences & Registrations',
+    text: 'GST • Shop Act • Udyam • FSSAI',
+    to: '/category/registrations-filings',
+  },
+  {
+    title: 'Protect Your Brand',
+    text: 'Trademark • ISO',
+    to: '/category/intellectual-property',
+  },
+  {
+    title: 'Expand Your Business',
+    text: 'Import Export • GeM',
+    to: '/category/grow-your-business',
+  },
+];
+
+export const askStartbizExamples = [
+  'I want to start a cloud kitchen. What registrations do I need?',
+  'I want to sell products online. What should I register?',
+  'I want to start a partnership business with my friend.',
+  'I want to register my brand.',
+  'I want to sell products to government departments.',
 ];
 
 export const journeyEntryPoints = [
@@ -99,7 +258,12 @@ export const structureComparison = {
     ['Separate legal entity', 'No', 'Yes', 'Yes'],
     ['Liability protection', 'Limited / none', 'Yes', 'Yes'],
     ['Compliance load', 'Lower', 'Moderate', 'Higher'],
-    ['Suitable for', 'Small businesses', 'Partners / professionals', 'Growth-oriented businesses'],
+    [
+      'Suitable for',
+      'Small businesses',
+      'Partners / professionals',
+      'Growth-oriented businesses',
+    ],
     ['Funding / investment', 'Limited', 'Limited', 'Better suited'],
   ],
   slugs: [
@@ -145,7 +309,7 @@ export const whyDifferent = [
 export const siteFaqs = [
   {
     q: 'How do I know which registration my business needs?',
-    a: 'Start from what you do, how many owners you have, where you sell, and your expected turnover. Use the requirement finder for a first roadmap, then let Startbiz verify — requirements vary by activity and location.',
+    a: 'Start from what you do, how many owners you have, where you sell, and your expected turnover. Use Find My Business Solution for a first roadmap, then let Startbiz verify — requirements vary by activity and location.',
   },
   {
     q: 'Is GST mandatory for every business?',
@@ -165,7 +329,7 @@ export const siteFaqs = [
   },
   {
     q: 'Do you only sell registrations?',
-    a: 'No. We help you identify what may apply, explain benefits and next steps, then support filing. You should not register what you do not need, and you should not skip what you do.',
+    a: 'No. Tell us your requirement and we help you find the right registration, licence or business solution — then support filing. You should not register what you do not need, and you should not skip what you do.',
   },
   {
     q: 'What fees should I expect?',

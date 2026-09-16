@@ -6,18 +6,16 @@ import About from '../components/About';
 import Seo from '../components/Seo';
 import { brand } from '../data/content';
 import {
-  BenefitsPreview,
+  AskStartbizSection,
   FaqSection,
   FinalCta,
   FinderSection,
   IndustrySection,
   JourneySection,
   KnowledgePreview,
-  PackagesSection,
   ProblemPathways,
-  ProcessSection,
+  SolutionFinderSection,
   StructureSection,
-  WhyDifferent,
 } from '../components/HomeExtras';
 
 export default function Home() {
@@ -27,16 +25,14 @@ export default function Home() {
       <Hero />
       <TrustBar />
       <ProblemPathways />
-      <FinderSection />
-      <JourneySection />
+      <SolutionFinderSection />
       <Services />
-      <BenefitsPreview />
+      <JourneySection />
+      <WhyChooseUs />
+      <AskStartbizSection />
       <StructureSection />
       <IndustrySection />
-      <WhyDifferent />
-      <WhyChooseUs />
-      <ProcessSection />
-      <PackagesSection />
+      <FinderSection />
       <KnowledgePreview />
       <FaqSection />
       <About />

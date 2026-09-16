@@ -1,13 +1,5 @@
 import { Link } from 'react-router-dom';
-import { brand, serviceCount } from '../data/content';
-import ServiceSearch from './ServiceSearch';
-
-const quickLinks = [
-  { label: 'Trademark Registration', slug: 'trademark-registration' },
-  { label: 'Company Registration', slug: 'private-limited-company-registration' },
-  { label: 'GST Registration', slug: 'gst-registration' },
-  { label: 'MSME Registration', slug: 'msme-registration' },
-];
+import { brand } from '../data/content';
 
 export default function Hero() {
   return (
@@ -37,39 +29,33 @@ export default function Hero() {
             {brand.tagline}
           </p>
           <h1 className="mt-2 max-w-xl font-display text-2xl font-semibold leading-snug tracking-tight text-brand-text sm:text-3xl md:text-[2.35rem] md:leading-tight">
-            Choose the right registration for your business — not every
-            registration.
+            Your Business Starts Here.
+            <span className="mt-1 block text-brand-primary">
+              We Help You Take the Right Step.
+            </span>
           </h1>
           <p className="mt-4 max-w-lg text-sm leading-relaxed text-brand-text-soft sm:text-base">
-            Tell us what you are building. We help you see what may apply, why
-            it matters, and what can wait — then support GST, company setup,
-            licences and compliance across Maharashtra.
+            From starting a new business to managing registrations, licences and
+            compliance, Startbiz helps you find the right business solution —
+            simply and professionally. GST, MSME, Shop Act, company registration,
+            FSSAI, trademark and more across Maharashtra.
           </p>
-
-          <div className="mt-6 max-w-xl">
-            <ServiceSearch variant="hero" />
-          </div>
+          <p className="mt-3 max-w-lg text-sm font-medium text-brand-text sm:text-base">
+            Tell us what you want to do. We&apos;ll tell you what you need.
+          </p>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link to="/finder" className="btn-primary w-full sm:w-auto">
-              Find What I Need
+              Find My Business Solution
             </Link>
-            <Link to="/#contact" className="btn-outline w-full sm:w-auto">
-              Get Free Consultation
-            </Link>
+            <a href="#contact" className="btn-outline w-full sm:w-auto">
+              Talk to a Business Expert
+            </a>
           </div>
 
-          <div className="mt-7 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
-            {quickLinks.map((item) => (
-              <Link
-                key={item.slug}
-                to={`/services/${item.slug}`}
-                className="rounded border border-brand-primary/20 bg-white px-3 py-2.5 text-center text-xs font-semibold text-brand-primary shadow-sm transition hover:border-brand-accent hover:text-brand-accent sm:text-sm"
-              >
-                {item.label.replace(' Registration', '')}
-              </Link>
-            ))}
-          </div>
+          <p className="mt-7 text-sm font-semibold text-brand-primary sm:text-base">
+            Serving Businesses Across Maharashtra
+          </p>
         </div>
 
         <div
@@ -79,15 +65,16 @@ export default function Hero() {
           <div className="overflow-hidden rounded-2xl border border-[#dbdbdb] bg-white p-2 shadow-soft sm:p-3">
             <img
               src={brand.cover}
-              alt={`${brand.name} business consulting services — company registration and GST support`}
+              alt={`${brand.name} business registrations and licences support across Maharashtra`}
               className="h-auto w-full rounded-xl object-contain"
             />
             <div className="mt-3 rounded-xl bg-brand-surface px-4 py-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-brand-accent">
-                Trusted Business Consulting Partner
+                Business Solutions Partner
               </p>
               <p className="mt-1 text-sm font-semibold text-brand-text">
-                500+ satisfied customers · {serviceCount}+ services
+                Starting or growing? Get the right registrations without the
+                confusion.
               </p>
             </div>
           </div>

@@ -25,11 +25,11 @@ export const brand = {
   name: 'startbiz.in',
   shortName: 'StartBiz',
   domain: 'startbiz.in',
-  tagline: 'Business Begins Here.',
+  tagline: 'Business Begins Here',
   seoTitle:
-    'startbiz.in | We Help You Choose the Right Registration for Your Business',
+    'startbiz.in | Business Registrations, Licences & Solutions in Maharashtra',
   seoDescription:
-    'Do not register what you do not need. Startbiz helps you identify the right registrations, licences and compliances for your business in Maharashtra and India.',
+    'Starting or growing a business? Startbiz helps you find the right registrations, licences and business solutions — GST, MSME, Shop Act, company registration, FSSAI, trademark and more across Maharashtra.',
   keywords: [
     'business consulting services',
     'business consulting India',
@@ -37,18 +37,23 @@ export const brand = {
     'company registration',
     'GST registration',
     'MSME registration',
+    'Udyam registration',
     'trademark registration',
     'private limited company registration',
     'LLP registration',
     'FSSAI food license',
     'Shop Act registration',
+    'Import Export Code',
+    'GeM registration',
     'business compliance Maharashtra',
+    'start a business Maharashtra',
     'startbiz.in',
   ],
   phone: '+91 75192 21199',
   phoneHref: 'tel:+917519221199',
   whatsapp: '917519221199',
-  whatsappMessage: 'Get Started',
+  whatsappMessage:
+    'Hello Startbiz, I need help with my business.\nMy business type is ________.\nI want to ________.',
   email: 'starbiz.in@gmail.com',
   emailHref: 'mailto:starbiz.in@gmail.com',
   contactPerson: 'Amol Ghoderao',
@@ -78,42 +83,55 @@ export const whatsappHref = getWhatsAppUrl();
 
 
 export const navLinks = [
-  { label: 'Find What I Need', to: '/finder' },
-  { label: 'Knowledge', to: '/knowledge' },
+  { label: 'Home', to: '/' },
+  { label: 'Start a Business', to: '/category/start-business' },
+  { label: 'Business Services', to: '/#services' },
+  { label: 'Business Solutions', to: '/finder' },
+  { label: 'About Startbiz', to: '/#about' },
   { label: 'Contact', to: '/#contact' },
 ];
 
 export const features = [
   {
-    title: 'We understand first',
+    title: 'Simple Guidance',
     description:
-      'We start with your activity, owners and where you sell — not with a generic registration cart.',
+      'We help you understand what your business actually needs — GST, company registration, licences and more.',
   },
   {
-    title: 'We explain what may apply',
+    title: 'One Place for Multiple Requirements',
     description:
-      'You see what is essential, useful, or only situation-dependent, with language that stays careful and accurate.',
+      'You do not need to approach different people for every registration, licence or compliance step.',
   },
   {
-    title: 'We help you choose',
+    title: 'Personalised Solutions',
     description:
-      'Structure, GST, licences and brand protection are compared against your facts before anything is filed.',
+      'The right solution depends on your business type and goals — not just a generic checklist.',
   },
   {
-    title: 'We support filing and after',
+    title: 'Transparent Process',
     description:
-      'Documentation, application support and post-registration guidance so compliance does not stop at the certificate.',
+      'Know the requirement, documents, process and expected charges before you proceed.',
+  },
+  {
+    title: 'Business-Focused Support',
+    description:
+      'We do not just process registrations — we help you take the next step as your business grows.',
+  },
+  {
+    title: 'Maharashtra-Wide Service',
+    description:
+      'Support for startups, shops, MSMEs and growing businesses across Maharashtra.',
   },
 ];
 
 export const trustStats = [
   { value: '500+', label: 'Satisfied Customers' },
-  { value: '100%', label: 'Hassle-Free Process' },
-  { value: 'MH', label: 'Pan-Maharashtra Service' },
-  { value: '110+', label: 'Business Consulting Services' },
+  { value: 'MH', label: 'Serving Across Maharashtra' },
+  { value: '110+', label: 'Business Solutions' },
+  { value: '1', label: 'Clear Next Step' },
 ];
 
-export const aboutText = `Welcome to startbiz.in. We help entrepreneurs, startups and MSMEs choose the right business structure, registrations and licences — and skip what they do not need. From GST and Udyam to FSSAI, Shop Act, trademark and company formation, our team explains applicability, benefits and next steps, then supports documentation and filing across Maharashtra. We do not sell registrations in isolation. We help you understand what your business may need, why it matters, and how to stay compliant as you grow.`;
+export const aboutText = `Welcome to startbiz.in — Business Begins Here. Tell us your business requirement and we help you find the right registration, licence or business solution. From starting a proprietorship, partnership, LLP, OPC or Private Limited company to GST registration, Shop Act, Udyam MSME, FSSAI, trademark, Import Export Code and government business support, Startbiz guides entrepreneurs and existing business owners across Maharashtra — simply and professionally.`;
 
 export const services = [
   {

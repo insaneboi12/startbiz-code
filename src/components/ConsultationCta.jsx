@@ -16,13 +16,13 @@ export default function ConsultationCta({
       <p className="mt-2 text-sm text-white/80 sm:text-base">{text}</p>
       <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <Link to="/finder" className="btn-primary w-full sm:w-auto">
-          Find What I Need
+          Find My Business Solution
         </Link>
         <a href="#contact" className="btn-ghost-light w-full sm:w-auto">
-          Free consultation
+          Talk to a Business Expert
         </a>
         <a
-          href={getWhatsAppUrl('I would like a free business consultation.')}
+          href={getWhatsAppUrl(brand.whatsappMessage)}
           target="_blank"
           rel="noreferrer"
           className="btn-ghost-light w-full sm:w-auto"

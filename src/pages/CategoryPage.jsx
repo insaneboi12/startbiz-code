@@ -48,7 +48,7 @@ export default function CategoryPage() {
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link to="/finder" className="btn-primary w-full sm:w-auto">
-              Find What I Need
+              Find My Business Solution
             </Link>
             <a href={brand.phoneHref} className="btn-outline w-full sm:w-auto">
               Call {brand.phone}

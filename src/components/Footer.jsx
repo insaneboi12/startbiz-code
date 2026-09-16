@@ -15,13 +15,14 @@ export default function Footer() {
               />
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-white/70">
-              {brand.name} helps you choose the right registrations, licences and
-              compliances — then supports filing across Maharashtra and India.
+              {brand.shortName} — {brand.tagline}. Tell us your business
+              requirement. We&apos;ll help you find the right registration,
+              licence or business solution across Maharashtra.
             </p>
             <ul className="mt-4 space-y-2">
               <li>
                 <Link to="/finder" className="text-sm text-white/75 hover:text-white">
-                  Find What I Need
+                  Find My Business Solution
                 </Link>
               </li>
               <li>
@@ -44,19 +45,9 @@ export default function Footer() {
 
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-brand-accent">
-              Service categories
+              Explore
             </h4>
             <ul className="mt-4 space-y-2">
-              {megaMenus.map((menu) => (
-                <li key={menu.id}>
-                  <Link
-                    to={menu.path}
-                    className="text-sm text-white/75 transition hover:text-white"
-                  >
-                    {menu.label}
-                  </Link>
-                </li>
-              ))}
               {navLinks.map((link) => (
                 <li key={link.to}>
                   <Link
@@ -67,6 +58,18 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              {megaMenus
+                .filter((menu) => !menu.hideFromNav)
+                .map((menu) => (
+                  <li key={menu.id}>
+                    <Link
+                      to={menu.path}
+                      className="text-sm text-white/75 transition hover:text-white"
+                    >
+                      {menu.label}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
 
@@ -108,14 +111,19 @@ export default function Footer() {
               </li>
               <li>{brand.contactPerson}</li>
               <li>Mon–Sat · 09:00 – 18:00</li>
+              <li>
+                <a href="/#contact" className="font-semibold text-brand-accent hover:text-white">
+                  Get My Business Solution
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-8 border-t border-white/10 pt-6 text-sm text-white/55 sm:mt-10">
           <p>
-            © {new Date().getFullYear()} {brand.domain} — Business consulting
-            services for startup registration &amp; compliance support.
+            © {new Date().getFullYear()} {brand.domain} — Business registrations,
+            licences &amp; solutions for startups and MSMEs in Maharashtra.
           </p>
           <p className="mt-2 max-w-3xl text-xs leading-relaxed">
             We act as a facilitation platform connecting entrepreneurs with
