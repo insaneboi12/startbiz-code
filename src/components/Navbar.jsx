@@ -28,7 +28,7 @@ export default function Navbar() {
     };
   }, [open]);
 
-  const mainLinks = navLinks.filter((link) => link.to !== '/');
+  const mainLinks = navLinks;
 
   return (
     <header

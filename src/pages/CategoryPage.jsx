@@ -47,9 +47,9 @@ export default function CategoryPage() {
             contact {brand.contactPerson} at {brand.phone}.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link to="/finder" className="btn-primary w-full sm:w-auto">
-              Find My Business Solution
-            </Link>
+            <a href="#contact" className="btn-primary w-full sm:w-auto">
+              Get My Business Solution
+            </a>
             <a href={brand.phoneHref} className="btn-outline w-full sm:w-auto">
               Call {brand.phone}
             </a>

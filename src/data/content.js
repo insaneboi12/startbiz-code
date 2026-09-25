@@ -25,7 +25,7 @@ export const brand = {
   name: 'startbiz.in',
   shortName: 'StartBiz',
   domain: 'startbiz.in',
-  tagline: 'Business Begins Here',
+  tagline: "From Idea to Business Growth — We're With You",
   seoTitle:
     'startbiz.in | Business Registrations, Licences & Solutions in Maharashtra',
   seoDescription:
@@ -60,7 +60,6 @@ export const brand = {
   logo: asset('/images/logo-transparent.png'),
   logoDark: asset('/images/logo-transparent.png'),
   cover: asset('/images/cover.webp'),
-  qr: asset('/images/qr.webp'),
   texture: asset('/textures/asfalt-dark.png'),
   textureAlt: asset('/textures/debut-dark.png'),
   textureLight: asset('/textures/light-paper-fibers.png'),
@@ -131,7 +130,7 @@ export const trustStats = [
   { value: '1', label: 'Clear Next Step' },
 ];
 
-export const aboutText = `Welcome to startbiz.in — Business Begins Here. Tell us your business requirement and we help you find the right registration, licence or business solution. From starting a proprietorship, partnership, LLP, OPC or Private Limited company to GST registration, Shop Act, Udyam MSME, FSSAI, trademark, Import Export Code and government business support, Startbiz guides entrepreneurs and existing business owners across Maharashtra — simply and professionally.`;
+export const aboutText = `Welcome to startbiz.in — From Idea to Business Growth, We're With You. Tell us your business requirement and we help you find the right registration, licence or business solution. From starting a proprietorship, partnership, LLP, OPC or Private Limited company to GST registration, Shop Act, Udyam MSME, FSSAI, trademark, Import Export Code and government business support, Startbiz guides entrepreneurs and existing business owners across Maharashtra — simply and professionally.`;
 
 export const services = [
   {

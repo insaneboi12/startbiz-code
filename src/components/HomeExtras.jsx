@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import RequirementFinder from './RequirementFinder';
 import ConsultationCta from './ConsultationCta';
@@ -94,11 +94,23 @@ export function SolutionFinderSection() {
   const [businessType, setBusinessType] = useState('');
   const [goal, setGoal] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const resultsRef = useRef(null);
 
   const results = useMemo(() => {
     if (!goal) return [];
     return solutionRecommendations[goal] || [];
   }, [goal]);
+
+  useEffect(() => {
+    if (!submitted || results.length === 0) return;
+    const id = window.requestAnimationFrame(() => {
+      resultsRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [submitted, results.length, businessType, goal]);
 
   const onFind = (e) => {
     e.preventDefault();
@@ -173,7 +185,11 @@ export function SolutionFinderSection() {
         </form>
 
         {submitted && results.length > 0 && (
-          <div className="mt-6 rounded-xl border border-brand-primary/20 bg-white p-5 sm:p-6">
+          <div
+            ref={resultsRef}
+            tabIndex={-1}
+            className="mt-6 scroll-mt-28 rounded-xl border border-brand-primary/20 bg-white p-5 outline-none sm:p-6"
+          >
             <h3 className="font-semibold text-brand-text">
               Suggested starting points for a {businessType.toLowerCase()} looking
               to {goal.toLowerCase()}
@@ -590,20 +606,20 @@ export function FaqSection() {
 export function FinalCta() {
   return (
     <section className="bg-brand-primary py-12 text-white sm:py-16">
-      <div className="section-wrap text-center">
-        <h2 className="font-display text-2xl font-semibold sm:text-3xl">
-          Startbiz — Business Begins Here
+      <div className="section-wrap text-center text-white">
+        <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
+          Startbiz — From Idea to Business Growth
         </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-white/80 sm:text-base">
-          Tell us your business requirement. We&apos;ll help you find the right
-          registration, licence or business solution — for new entrepreneurs and
-          existing business owners across Maharashtra.
+        <p className="mx-auto mt-3 max-w-xl text-sm text-white sm:text-base">
+          We&apos;re with you. Tell us your business requirement. We&apos;ll help
+          you find the right registration, licence or business solution — for new
+          entrepreneurs and existing business owners across Maharashtra.
         </p>
         <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link to="/finder" className="btn-primary">
+          <Link to="/finder" className="btn-primary !text-white">
             Find My Business Solution
           </Link>
-          <a href="#contact" className="btn-ghost-light">
+          <a href="#contact" className="btn-ghost-light !text-white">
             Talk to a Business Expert
           </a>
         </div>

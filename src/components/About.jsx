@@ -9,7 +9,7 @@ export default function About() {
           <div className="order-2 lg:order-1">
             <p className="section-label">About Startbiz</p>
             <h2 className="heading mt-2 text-2xl sm:text-3xl lg:text-4xl">
-              Startbiz — Business Begins Here
+              Startbiz — From Idea to Business Growth
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-brand-text-soft sm:text-base">
               {aboutText}

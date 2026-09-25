@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import {
-  megaMenus,
   serviceCategories,
   serviceCount,
   slugify,
@@ -53,33 +52,6 @@ export default function Services() {
               </span>
             </Link>
           ))}
-        </div>
-
-        <div className="mt-8 flex flex-col items-stretch justify-between gap-4 rounded-xl border border-dashed border-brand-primary/25 bg-brand-muted/70 px-5 py-6 text-center sm:mt-10 sm:flex-row sm:items-center sm:px-6 sm:py-8 sm:text-left">
-          <div className="min-w-0">
-            <h3 className="heading text-xl sm:text-2xl">Need Something Else?</h3>
-            <p className="body-muted mt-1 text-sm">
-              Tell us your requirement. We&apos;ll help you identify the right
-              solution.
-            </p>
-          </div>
-          <a href="#contact" className="btn-primary w-full sm:w-auto">
-            Talk to Startbiz
-          </a>
-        </div>
-
-        <div className="mt-6 flex flex-wrap gap-2">
-          {megaMenus
-            .filter((menu) => !menu.hideFromNav)
-            .map((menu) => (
-              <Link
-                key={menu.id}
-                to={menu.path}
-                className="rounded-full border border-brand-primary/20 bg-brand-muted px-4 py-2 text-sm font-semibold text-brand-primary transition hover:border-brand-accent hover:text-brand-accent"
-              >
-                {menu.label}
-              </Link>
-            ))}
         </div>
 
         <div className="mt-12 sm:mt-14">

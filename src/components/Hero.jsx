@@ -25,7 +25,7 @@ export default function Hero() {
             alt={`${brand.name} — ${brand.tagline}`}
             className="mb-5 h-12 w-auto max-w-[220px] object-contain object-left sm:h-14 sm:max-w-[280px] md:h-16 md:max-w-[320px]"
           />
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-brand-accent sm:text-base">
+          <p className="mb-2 text-sm font-semibold text-brand-accent sm:text-base">
             {brand.tagline}
           </p>
           <h1 className="mt-2 max-w-xl font-display text-2xl font-semibold leading-snug tracking-tight text-brand-text sm:text-3xl md:text-[2.35rem] md:leading-tight">
@@ -73,8 +73,7 @@ export default function Hero() {
                 Business Solutions Partner
               </p>
               <p className="mt-1 text-sm font-semibold text-brand-text">
-                Starting or growing? Get the right registrations without the
-                confusion.
+                {brand.tagline}
               </p>
             </div>
           </div>

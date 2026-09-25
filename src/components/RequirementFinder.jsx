@@ -9,7 +9,7 @@ import {
 import { getWhatsAppUrl } from '../data/content';
 import ConsultationCta from './ConsultationCta';
 
-const STORAGE_KEY = 'startbiz.finder.v1';
+const STORAGE_KEY = 'startbiz.finder.v2';
 const empty = Object.fromEntries(finderQuestions.map((q) => [q.id, '']));
 
 function loadCompletedFinder() {

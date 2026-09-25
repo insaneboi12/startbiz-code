@@ -36,24 +36,27 @@ export default function WhyChooseUs() {
 
         <div className="mt-8 overflow-hidden rounded-xl bg-brand-primary px-5 py-7 text-white sm:mt-10 sm:px-8 sm:py-9 lg:px-10">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
-            <div className="max-w-xl">
-              <h3 className="font-display text-xl font-semibold sm:text-2xl lg:text-3xl">
+            <div className="max-w-xl text-white">
+              <h3 className="font-display text-xl font-semibold text-white sm:text-2xl lg:text-3xl">
                 Need expert guidance?
               </h3>
-              <p className="mt-2 text-sm text-white/80 sm:text-base">
+              <p className="mt-2 text-sm text-white sm:text-base">
                 Get clarity on company registration, GST registration, trademark,
                 Shop Act, FSSAI and business compliance — tailored to your goals.
               </p>
             </div>
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-              <a href="#contact" className="btn-primary w-full sm:w-auto">
+              <a
+                href="#contact"
+                className="btn-primary w-full !text-white sm:w-auto"
+              >
                 Get My Business Solution
               </a>
               <a
                 href={getWhatsAppUrl(brand.whatsappMessage)}
                 target="_blank"
                 rel="noreferrer"
-                className="btn-ghost-light w-full sm:w-auto"
+                className="btn-ghost-light w-full !text-white sm:w-auto"
               >
                 Talk to Startbiz
               </a>

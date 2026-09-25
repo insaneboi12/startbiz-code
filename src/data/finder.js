@@ -32,55 +32,16 @@ export const finderQuestions = [
       { id: 'three-plus', label: 'Three or more' },
     ],
   },
-  {
-    id: 'sellWhere',
-    title: 'Where will you sell?',
-    options: [
-      { id: 'local', label: 'Local / nearby area' },
-      { id: 'maharashtra', label: 'Across Maharashtra' },
-      { id: 'india', label: 'Across India' },
-      { id: 'international', label: 'Internationally' },
-    ],
-  },
-  {
-    id: 'turnover',
-    title: 'What is your approximate annual turnover?',
-    help: 'GST thresholds differ for goods and services, and other conditions may apply.',
-    options: [
-      { id: 'below-20l', label: 'Under ₹20 lakh' },
-      { id: '20-40l', label: '₹20–40 lakh' },
-      { id: '40l-plus', label: '₹40 lakh and above' },
-      { id: 'not-sure', label: 'Not sure yet' },
-    ],
-  },
-  {
-    id: 'employees',
-    title: 'Do you have employees?',
-    options: [
-      { id: 'yes', label: 'Yes' },
-      { id: 'no', label: 'Not yet' },
-    ],
-  },
-  {
-    id: 'online',
-    title: 'Do you sell online?',
-    options: [
-      { id: 'marketplace', label: 'Amazon / Flipkart or other marketplaces' },
-      { id: 'own-website', label: 'My own website' },
-      { id: 'both', label: 'Marketplace and website' },
-      { id: 'no', label: 'No, offline only' },
-    ],
-  },
 ];
 
 const item = (title, slug, reason) => ({ title, slug, reason });
 
 function recommendStructure(answers) {
-  const { owners, businessType, sellWhere } = answers;
+  const { owners, businessType } = answers;
   const growth =
     businessType === 'ecommerce' ||
-    sellWhere === 'india' ||
-    sellWhere === 'international';
+    businessType === 'import-export' ||
+    businessType === 'manufacturing';
 
   if (owners === 'one') {
     if (growth) {
@@ -184,12 +145,7 @@ export function buildRoadmap(answers) {
 
   const food =
     answers.businessType === 'food' || answers.businessType === 'restaurant';
-  const onlineSell =
-    answers.online === 'marketplace' ||
-    answers.online === 'both' ||
-    answers.businessType === 'ecommerce';
-  const wideMarket =
-    answers.sellWhere === 'india' || answers.sellWhere === 'international';
+  const onlineSell = answers.businessType === 'ecommerce';
   const serviceLike = [
     'service',
     'consultancy',
@@ -198,18 +154,16 @@ export function buildRoadmap(answers) {
   ].includes(answers.businessType);
 
   const gstLikely =
-    wideMarket ||
     onlineSell ||
-    answers.turnover === '40l-plus' ||
     answers.businessType === 'import-export' ||
-    answers.sellWhere === 'international';
+    answers.businessType === 'manufacturing' ||
+    answers.businessType === 'trading';
 
   const gstMaybe =
-    answers.turnover === '20-40l' ||
-    answers.turnover === 'not-sure' ||
-    (serviceLike && answers.turnover !== 'below-20l') ||
-    answers.sellWhere === 'maharashtra' ||
-    answers.online === 'own-website';
+    serviceLike ||
+    answers.businessType === 'retail' ||
+    answers.businessType === 'construction' ||
+    answers.businessType === 'other';
 
   if (gstLikely) {
     pushUnique(
@@ -217,7 +171,7 @@ export function buildRoadmap(answers) {
       item(
         'GST registration',
         'gst-registration',
-        'GST may be important for interstate supply, e-commerce, import/export or higher turnover. Applicability is subject to GST rules for your supply type.'
+        'GST may be important for trading, manufacturing, e-commerce or import/export. Applicability is subject to GST rules for your supply type.'
       )
     );
   } else if (gstMaybe) {
@@ -226,7 +180,7 @@ export function buildRoadmap(answers) {
       item(
         'GST registration',
         'gst-registration',
-        'GST can become relevant as turnover, B2B customers or online sales grow. Thresholds differ for goods and services.'
+        'GST can become relevant as your business grows or when B2B customers ask for GST invoices. Thresholds differ for goods and services.'
       )
     );
   } else {
@@ -246,15 +200,12 @@ export function buildRoadmap(answers) {
       item(
         'FSSAI registration / licence',
         'fssai-registration',
-        'Food businesses generally need FSSAI registration or a state/central licence, depending on turnover and activity.'
+        'Food businesses generally need FSSAI registration or a state/central licence, depending on activity.'
       )
     );
   }
 
-  if (
-    answers.businessType === 'import-export' ||
-    answers.sellWhere === 'international'
-  ) {
+  if (answers.businessType === 'import-export') {
     pushUnique(
       essential,
       item(
@@ -277,15 +228,14 @@ export function buildRoadmap(answers) {
   if (
     ['retail', 'restaurant', 'manufacturing', 'food', 'trading'].includes(
       answers.businessType
-    ) ||
-    answers.employees === 'yes'
+    )
   ) {
     pushUnique(
       recommended,
       item(
         'Shop & Establishment (Shop Act)',
         'shop-and-establishment-registration',
-        'A physical place of business or employees in Maharashtra often requires Shop & Establishment registration, subject to local rules.'
+        'A physical place of business in Maharashtra often requires Shop & Establishment registration, subject to local rules.'
       )
     );
   } else {
@@ -317,25 +267,14 @@ export function buildRoadmap(answers) {
     )
   );
 
-  if (answers.employees === 'yes') {
-    pushUnique(
-      recommended,
-      item(
-        'Professional Tax',
-        'professional-tax-registration',
-        'Employers in Maharashtra may need Professional Tax registration, subject to applicable conditions.'
-      )
-    );
-  } else {
-    pushUnique(
-      depending,
-      item(
-        'Professional Tax',
-        'professional-tax-registration',
-        'May apply to certain professions and employers, depending on state rules.'
-      )
-    );
-  }
+  pushUnique(
+    depending,
+    item(
+      'Professional Tax',
+      'professional-tax-registration',
+      'May apply to certain professions and employers, depending on state rules.'
+    )
+  );
 
   if (['retail', 'restaurant', 'food', 'manufacturing'].includes(answers.businessType)) {
     pushUnique(
@@ -372,7 +311,7 @@ export function buildRoadmap(answers) {
     },
     {
       id: 'gst',
-      label: 'Check GST applicability for your supplies, turnover and sales channel',
+      label: 'Check GST applicability for your business activity',
       slug: 'gst-registration',
     },
     {
@@ -395,9 +334,7 @@ export function buildRoadmap(answers) {
       id: 'iec',
       label: 'IEC — if you import or export',
       slug: 'import-export-code-registration',
-      hidden:
-        answers.businessType !== 'import-export' &&
-        answers.sellWhere !== 'international',
+      hidden: answers.businessType !== 'import-export',
     },
     {
       id: 'tm',

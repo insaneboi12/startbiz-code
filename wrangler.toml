@@ -1,0 +1,8 @@
+name = "startbiz"
+compatibility_date = "2026-09-25"
+
+# Serve the CRA production build as static assets.
+# Unmatched client routes (e.g. /finder) must return index.html so React Router works on reload.
+[assets]
+directory = "./build"
+not_found_handling = "single-page-application"

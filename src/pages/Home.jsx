@@ -9,13 +9,9 @@ import {
   AskStartbizSection,
   FaqSection,
   FinalCta,
-  FinderSection,
-  IndustrySection,
   JourneySection,
-  KnowledgePreview,
   ProblemPathways,
   SolutionFinderSection,
-  StructureSection,
 } from '../components/HomeExtras';
 
 export default function Home() {
@@ -30,10 +26,6 @@ export default function Home() {
       <JourneySection />
       <WhyChooseUs />
       <AskStartbizSection />
-      <StructureSection />
-      <IndustrySection />
-      <FinderSection />
-      <KnowledgePreview />
       <FaqSection />
       <About />
       <FinalCta />
