@@ -2,7 +2,9 @@ name = "startbiz"
 compatibility_date = "2026-09-25"
 
 # Serve the CRA production build as static assets.
-# Unmatched client routes (e.g. /finder) must return index.html so React Router works on reload.
+# SPA client routes (e.g. /finder) are handled here — do NOT add public/_redirects
+# with `/* /index.html 200` (Cloudflare Workers rejects that as an infinite loop).
 [assets]
 directory = "./build"
 not_found_handling = "single-page-application"
+html_handling = "none"
