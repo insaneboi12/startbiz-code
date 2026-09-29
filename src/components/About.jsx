@@ -1,5 +1,15 @@
 import { Link } from 'react-router-dom';
-import { aboutText, brand, gallery } from '../data/content';
+import {
+  aboutDifferentiators,
+  aboutText,
+  brand,
+  exploreSolutions,
+} from '../data/content';
+import {
+  IconBadge,
+  differentiatorIcons,
+  IconSearch,
+} from './VisualIcons';
 
 export default function About() {
   return (
@@ -9,26 +19,34 @@ export default function About() {
           <div className="order-2 lg:order-1">
             <p className="section-label">About Startbiz</p>
             <h2 className="heading mt-2 text-2xl sm:text-3xl lg:text-4xl">
-              Startbiz — From Idea to Business Growth
+              From Idea to Business Growth — We&apos;re With You
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-brand-text-soft sm:text-base">
               {aboutText}
             </p>
+            <p className="mt-4 text-sm font-medium text-brand-text sm:text-base">
+              We aim to make business registration and compliance simpler,
+              clearer and more accessible for entrepreneurs and existing
+              businesses across Maharashtra.
+            </p>
+            <Link to="/finder" className="btn-primary mt-6">
+              Find My Business Requirements →
+            </Link>
             <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4">
-              <div className="rounded-xl bg-white p-4 shadow-soft">
+              <div className="rounded-xl bg-white p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-md">
                 <p className="font-display text-2xl font-semibold text-brand-accent">
                   500+
                 </p>
                 <p className="mt-1 text-sm text-brand-text-soft">
-                  समाधानी ग्राहकांचा विश्वास
+                  Businesses Served
                 </p>
               </div>
-              <div className="rounded-xl bg-white p-4 shadow-soft">
+              <div className="rounded-xl bg-white p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-md">
                 <p className="font-display text-2xl font-semibold text-brand-accent">
                   MH
                 </p>
                 <p className="mt-1 text-sm text-brand-text-soft">
-                  संपूर्ण महाराष्ट्रात सेवा उपलब्ध
+                  Maharashtra-Wide Support
                 </p>
               </div>
             </div>
@@ -46,31 +64,64 @@ export default function About() {
         </div>
 
         <div className="mt-12 sm:mt-14">
-          <p className="section-label">Portfolio</p>
+          <p className="section-label">What makes Startbiz different?</p>
           <h3 className="heading mt-2 text-xl sm:text-2xl lg:text-3xl">
-            Selected works
+            Clear guidance at every step
           </h3>
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-5">
-            {gallery.map((item) => (
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {aboutDifferentiators.map((item) => {
+              const Icon = differentiatorIcons[item.title] || IconSearch;
+              return (
+                <article
+                  key={item.title}
+                  className="group relative overflow-hidden rounded-xl border border-[#dbdbdb] bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-brand-accent hover:shadow-soft"
+                >
+                  <div
+                    className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-brand-primary/5 transition group-hover:scale-125"
+                    aria-hidden
+                  />
+                  <IconBadge className="mb-3">
+                    <Icon />
+                  </IconBadge>
+                  <h4 className="relative font-semibold text-brand-text">
+                    {item.title}
+                  </h4>
+                  <p className="relative mt-2 text-sm text-brand-text-soft">
+                    {item.text}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-12 sm:mt-14">
+          <p className="section-label">Explore solutions</p>
+          <h3 className="heading mt-2 text-xl sm:text-2xl lg:text-3xl">
+            What Can We Help You With?
+          </h3>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {exploreSolutions.map((item) => (
               <Link
                 key={item.title}
-                to={`/services/${item.slug}`}
+                to={item.to}
                 className="group flex flex-col overflow-hidden rounded-xl border border-[#dbdbdb] bg-white transition duration-300 hover:-translate-y-1 hover:border-brand-accent hover:shadow-soft"
               >
-                <div className="bg-brand-muted">
+                <div className="aspect-[4/3] overflow-hidden bg-brand-muted">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="h-auto w-full object-contain"
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
                     loading="lazy"
                   />
                 </div>
-                <div className="flex items-center justify-between gap-2 border-t border-[#dbdbdb] px-3 py-3 sm:px-4 sm:py-3.5">
-                  <h4 className="text-sm font-semibold text-brand-text sm:text-base">
+                <div className="flex flex-1 flex-col gap-2 border-t border-[#dbdbdb] px-4 py-4">
+                  <h4 className="text-base font-semibold text-brand-text">
                     {item.title}
                   </h4>
-                  <span className="shrink-0 text-sm font-semibold text-brand-primary transition group-hover:text-brand-accent">
-                    View →
+                  <p className="text-sm text-brand-text-soft">{item.text}</p>
+                  <span className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-brand-primary transition group-hover:gap-2 group-hover:text-brand-accent">
+                    Explore options <span aria-hidden>→</span>
                   </span>
                 </div>
               </Link>

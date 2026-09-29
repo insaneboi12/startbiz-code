@@ -3,8 +3,13 @@ import TrustBar from '../components/TrustBar';
 import WhyChooseUs from '../components/WhyChooseUs';
 import Services from '../components/Services';
 import About from '../components/About';
-import Seo from '../components/Seo';
+import Seo, {
+  faqSchema,
+  organizationSchema,
+  websiteSchema,
+} from '../components/Seo';
 import { brand } from '../data/content';
+import { siteFaqs } from '../data/strategyContent';
 import {
   AskStartbizSection,
   FaqSection,
@@ -15,9 +20,16 @@ import {
 } from '../components/HomeExtras';
 
 export default function Home() {
+  const jsonLd = [organizationSchema(), websiteSchema(), faqSchema(siteFaqs)];
+
   return (
     <>
-      <Seo title={brand.seoTitle} description={brand.seoDescription} />
+      <Seo
+        title={brand.seoTitle}
+        description={brand.seoDescription}
+        path="/"
+        jsonLd={jsonLd}
+      />
       <Hero />
       <TrustBar />
       <ProblemPathways />

@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
+    "qrcode": "^1.5.4",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^6.30.4",
@@ -16,10 +17,11 @@
     "yaml": "^2.9.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && node scripts/strip-redirects.js",
+    "start": "node scripts/seo-build.cjs && react-scripts start",
+    "build": "react-scripts build && node scripts/strip-redirects.js && node scripts/seo-build.cjs",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "seo": "node scripts/seo-build.cjs",
     "deploy": "npm run build && wrangler deploy",
     "preview": "npm run build && wrangler dev"
   },

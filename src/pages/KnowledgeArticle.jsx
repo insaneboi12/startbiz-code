@@ -1,8 +1,8 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
-import Seo from '../components/Seo';
-import ConsultationCta from '../components/ConsultationCta';
+import Seo, { breadcrumbSchema } from '../components/Seo';
 import { brand } from '../data/content';
 import { getArticleBySlug, getRelatedArticles } from '../data/knowledge';
+import { absoluteUrl } from '../data/site';
 
 export default function KnowledgeArticle() {
   const { slug } = useParams();
@@ -11,10 +11,33 @@ export default function KnowledgeArticle() {
   if (!article) return <Navigate to="/knowledge" replace />;
 
   const related = getRelatedArticles(slug);
+  const path = `/knowledge/${article.slug}`;
+  const jsonLd = [
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Knowledge', path: '/knowledge' },
+      { name: article.title, path },
+    ]),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: article.title,
+      description: article.excerpt,
+      author: { '@type': 'Organization', name: brand.name },
+      publisher: { '@type': 'Organization', name: brand.name },
+      mainEntityOfPage: absoluteUrl(path),
+    },
+  ];
 
   return (
     <div className="bg-brand-surface">
-      <Seo title={`${article.title} | ${brand.name}`} description={article.excerpt} />
+      <Seo
+        title={`${article.title} | ${brand.name}`}
+        description={article.excerpt}
+        path={path}
+        type="article"
+        jsonLd={jsonLd}
+      />
       <article className="border-b border-[#dbdbdb] bg-white pt-[72px] sm:pt-20">
         <div className="section-wrap max-w-3xl py-10 sm:py-14">
           <nav className="mb-5 text-sm text-brand-text-soft">
@@ -44,7 +67,6 @@ export default function KnowledgeArticle() {
               </p>
             </div>
           ))}
-          <ConsultationCta compact />
           {related.length > 0 && (
             <div>
               <h2 className="heading text-xl">Related guides</h2>

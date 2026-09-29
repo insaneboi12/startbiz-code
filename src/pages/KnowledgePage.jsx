@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
-import ConsultationCta from '../components/ConsultationCta';
 import { brand } from '../data/content';
 import { knowledgeArticles, knowledgeCategories } from '../data/knowledge';
 
@@ -20,6 +19,7 @@ export default function KnowledgePage() {
       <Seo
         title={`Business Knowledge Centre | ${brand.name}`}
         description="Guides on business structure, GST, Udyam, FSSAI and trademarks — written to help you decide what may apply before you file."
+        path="/knowledge"
       />
       <section className="border-b border-[#dbdbdb] bg-white pt-[72px] sm:pt-20">
         <div className="section-wrap py-10 sm:py-14">
@@ -89,9 +89,6 @@ export default function KnowledgePage() {
             ))}
           </div>
 
-          <div className="mt-10">
-            <ConsultationCta compact />
-          </div>
         </div>
       </section>
     </div>

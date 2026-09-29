@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
-import ConsultationCta from '../components/ConsultationCta';
 import { brand } from '../data/content';
 import { structureComparison, structureGuide } from '../data/strategyContent';
 
@@ -14,6 +13,7 @@ export default function ComparePage() {
       <Seo
         title={`Compare Business Structures | ${brand.name}`}
         description="Compare proprietorship, LLP and private limited company on owners, liability, compliance and funding — then talk to Startbiz."
+        path="/compare"
       />
       <section className="border-b border-[#dbdbdb] bg-white pt-[72px] sm:pt-20">
         <div className="section-wrap py-10 sm:py-14">
@@ -80,12 +80,6 @@ export default function ComparePage() {
             ))}
           </div>
 
-          <div className="mt-10">
-            <ConsultationCta
-              title="Still comparing proprietorship, LLP and Pvt Ltd?"
-              text="Tell us about owners, funding plans and where you will sell. We will help you compare options without pushing a product."
-            />
-          </div>
         </div>
       </section>
     </div>

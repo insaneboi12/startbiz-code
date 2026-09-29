@@ -35,27 +35,43 @@ export default function Hero() {
             </span>
           </h1>
           <p className="mt-4 max-w-lg text-sm leading-relaxed text-brand-text-soft sm:text-base">
-            From starting a new business to managing registrations, licences and
-            compliance, Startbiz helps you find the right business solution —
-            simply and professionally. GST, MSME, Shop Act, company registration,
-            FSSAI, trademark and more across Maharashtra.
+            Starting a business can be confusing. What registration do you need?
+            Which licence applies? What should you do first?
+          </p>
+          <p className="mt-3 max-w-lg text-sm leading-relaxed text-brand-text-soft sm:text-base">
+            <span className="font-semibold text-brand-text">
+              Startbiz.in helps you find the right business solution — simply,
+              clearly and professionally.
+            </span>{' '}
+            From GST, MSME, Shop Act and FSSAI to company registration, LLP,
+            trademark, ISO, Import Export and GeM, we help businesses across
+            Maharashtra take the right step.
           </p>
           <p className="mt-3 max-w-lg text-sm font-medium text-brand-text sm:text-base">
             Tell us what you want to do. We&apos;ll tell you what you need.
           </p>
+          <p className="mt-2 max-w-lg text-sm text-brand-text-soft">
+            {brand.supportLine}
+          </p>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link to="/finder" className="btn-primary w-full sm:w-auto">
-              Find My Business Solution
+              Find My Business Requirements
             </Link>
             <a href="#contact" className="btn-outline w-full sm:w-auto">
               Talk to a Business Expert
             </a>
           </div>
 
-          <p className="mt-7 text-sm font-semibold text-brand-primary sm:text-base">
-            Serving Businesses Across Maharashtra
-          </p>
+          <div className="mt-7">
+            <p className="text-sm font-semibold text-brand-primary sm:text-base">
+              Serving Businesses Across Maharashtra
+            </p>
+            <p className="mt-1 text-xs text-brand-text-soft sm:text-sm">
+              Helping entrepreneurs navigate registrations, licences,
+              certifications and business formalities.
+            </p>
+          </div>
         </div>
 
         <div
@@ -70,10 +86,10 @@ export default function Hero() {
             />
             <div className="mt-3 rounded-xl bg-brand-surface px-4 py-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-brand-accent">
-                Business Solutions Partner
+                Business Solution Platform
               </p>
               <p className="mt-1 text-sm font-semibold text-brand-text">
-                {brand.tagline}
+                Start with your business — not with a registration list.
               </p>
             </div>
           </div>

@@ -26,10 +26,12 @@ export const brand = {
   shortName: 'StartBiz',
   domain: 'startbiz.in',
   tagline: "From Idea to Business Growth — We're With You",
+  supportLine:
+    "Tell us what you want to achieve. We'll help you understand what you need and what to do next.",
   seoTitle:
     'startbiz.in | Business Registrations, Licences & Solutions in Maharashtra',
   seoDescription:
-    'Starting or growing a business? Startbiz helps you find the right registrations, licences and business solutions — GST, MSME, Shop Act, company registration, FSSAI, trademark and more across Maharashtra.',
+    "Don't know what your business needs? Startbiz helps you understand which registrations, licences and business services may be relevant — GST, MSME, Shop Act, company registration, FSSAI, trademark and more across Maharashtra.",
   keywords: [
     'business consulting services',
     'business consulting India',
@@ -85,52 +87,103 @@ export const navLinks = [
   { label: 'Home', to: '/' },
   { label: 'Start a Business', to: '/category/start-business' },
   { label: 'Business Services', to: '/#services' },
-  { label: 'Business Solutions', to: '/finder' },
+  { label: 'Find Requirements', to: '/finder' },
   { label: 'About Startbiz', to: '/#about' },
   { label: 'Contact', to: '/#contact' },
 ];
 
 export const features = [
   {
-    title: 'Simple Guidance',
+    title: 'We Start With Your Business',
     description:
-      'We help you understand what your business actually needs — GST, company registration, licences and more.',
+      'We understand your business situation before suggesting relevant services.',
   },
   {
-    title: 'One Place for Multiple Requirements',
+    title: 'Get a Clear Business Roadmap',
     description:
-      'You do not need to approach different people for every registration, licence or compliance step.',
+      'What you may need → Why → Documents → Process → Next Step',
   },
   {
-    title: 'Personalised Solutions',
+    title: 'Multiple Requirements. One Place.',
     description:
-      'The right solution depends on your business type and goals — not just a generic checklist.',
+      'Business registrations, licences, certifications, brand protection and growth support.',
   },
   {
-    title: 'Transparent Process',
+    title: 'Solutions Based on Your Situation',
     description:
-      'Know the requirement, documents, process and expected charges before you proceed.',
+      'Different businesses have different requirements. We help you identify what may be relevant to yours.',
   },
   {
-    title: 'Business-Focused Support',
+    title: 'Transparent Before You Proceed',
     description:
-      'We do not just process registrations — we help you take the next step as your business grows.',
+      'Understand requirements, documents, process and expected charges before proceeding.',
   },
   {
-    title: 'Maharashtra-Wide Service',
+    title: 'Support Beyond Registration',
     description:
-      'Support for startups, shops, MSMEs and growing businesses across Maharashtra.',
+      'Return to Startbiz as your business changes and grows.',
+  },
+  {
+    title: 'Maharashtra-Wide Support',
+    description:
+      'Support for entrepreneurs and businesses across Maharashtra.',
   },
 ];
 
 export const trustStats = [
-  { value: '500+', label: 'Satisfied Customers' },
-  { value: 'MH', label: 'Serving Across Maharashtra' },
-  { value: '110+', label: 'Business Solutions' },
+  { value: '500+', label: 'Businesses Served' },
+  { value: 'MH', label: 'Maharashtra-Wide Support' },
+  { value: '66+', label: 'Business Services' },
   { value: '1', label: 'Clear Next Step' },
 ];
 
-export const aboutText = `Welcome to startbiz.in — From Idea to Business Growth, We're With You. Tell us your business requirement and we help you find the right registration, licence or business solution. From starting a proprietorship, partnership, LLP, OPC or Private Limited company to GST registration, Shop Act, Udyam MSME, FSSAI, trademark, Import Export Code and government business support, Startbiz guides entrepreneurs and existing business owners across Maharashtra — simply and professionally.`;
+export const aboutText = `Starting or running a business can involve registrations, licences, compliance, documentation and many decisions. Startbiz helps you understand your business requirements and find the right next step. Whether you're starting a new business, running an existing business or planning to grow, tell us what you want to achieve and explore the registrations, licences, certifications and business solutions that may be relevant. From proprietorship, partnership, LLP, OPC and Private Limited company registration to GST, Shop & Establishment, Udyam/MSME, FSSAI, Trademark, Import Export and government business support, Startbiz brings multiple business requirements together in one place. Our approach is simple: Understand your business → Identify your requirements → Explain your options → Help you take the next step.`;
+
+export const aboutDifferentiators = [
+  {
+    title: 'Start With Your Requirement',
+    text: "You don't have to know the name of the registration or licence you need. Tell us what you're trying to achieve.",
+  },
+  {
+    title: 'Get a Clear Direction',
+    text: 'We help you understand relevant requirements, documents, processes and possible next steps.',
+  },
+  {
+    title: 'Multiple Business Solutions',
+    text: 'Access support across business setup, registrations, licences, brand protection, certifications and growth.',
+  },
+  {
+    title: 'Support as Your Business Grows',
+    text: 'Your requirements can change as your business changes. Startbiz is designed to support you beyond the first registration.',
+  },
+];
+
+export const exploreSolutions = [
+  {
+    title: 'Starting a new business?',
+    text: 'Understand your structure and initial registrations.',
+    to: '/category/start-business',
+    image: asset('/images/solutions/start-business.jpg'),
+  },
+  {
+    title: 'Starting a food business?',
+    text: 'Explore FSSAI and other potentially relevant requirements.',
+    to: '/services/fssai-registration',
+    image: asset('/images/solutions/food-business.jpg'),
+  },
+  {
+    title: 'Selling products online?',
+    text: 'Check GST and other requirements for your sales model.',
+    to: '/finder?stage=running',
+    image: asset('/images/solutions/online-business.jpg'),
+  },
+  {
+    title: 'Planning to grow?',
+    text: 'Explore MSME, certification and business expansion support.',
+    to: '/category/grow-your-business',
+    image: asset('/images/solutions/grow-business.jpg'),
+  },
+];
 
 export const services = [
   {

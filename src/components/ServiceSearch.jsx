@@ -4,7 +4,7 @@ import { searchServices, serviceCount } from '../data/content';
 
 export default function ServiceSearch({
   variant = 'hero',
-  placeholder = `Search ${serviceCount}+ business consulting services…`,
+  placeholder = 'What are you looking for? e.g. start a food business, GST, trademark…',
   className = '',
   autoFocus = false,
 }) {

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
-import ConsultationCta from '../components/ConsultationCta';
 import { brand } from '../data/content';
 import { industries } from '../data/industries';
 
@@ -10,6 +9,7 @@ export default function IndustriesPage() {
       <Seo
         title={`Industry Solutions | ${brand.name}`}
         description="Typical registration paths for restaurants, cloud kitchens, e-commerce, freelancers and construction businesses in India."
+        path="/industries"
       />
       <section className="border-b border-[#dbdbdb] bg-white pt-[72px] sm:pt-20">
         <div className="section-wrap py-10 sm:py-14">
@@ -43,9 +43,6 @@ export default function IndustriesPage() {
               <p className="mt-2 text-sm text-brand-text-soft">{item.summary}</p>
             </Link>
           ))}
-        </div>
-        <div className="section-wrap mt-10">
-          <ConsultationCta compact />
         </div>
       </section>
     </div>

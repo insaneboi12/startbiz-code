@@ -1,6 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
-import Seo from '../components/Seo';
-import ConsultationCta from '../components/ConsultationCta';
+import Seo, { breadcrumbSchema } from '../components/Seo';
 import { brand, getServiceBySlug } from '../data/content';
 import { getIndustryBySlug } from '../data/industries';
 import { packages } from '../data/strategyContent';
@@ -15,12 +14,20 @@ export default function IndustryDetail() {
   const related = industry.related
     .map((s) => getServiceBySlug(s))
     .filter(Boolean);
+  const path = `/industries/${industry.slug}`;
+  const jsonLd = breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Industries', path: '/industries' },
+    { name: industry.title, path },
+  ]);
 
   return (
     <div className="bg-brand-surface">
       <Seo
-        title={`${industry.title} | ${brand.name}`}
+        title={`${industry.title} Registrations | ${brand.name}`}
         description={industry.summary}
+        path={path}
+        jsonLd={jsonLd}
       />
       <section className="border-b border-[#dbdbdb] bg-white pt-[72px] sm:pt-20">
         <div className="section-wrap py-10 sm:py-14">
@@ -102,7 +109,6 @@ export default function IndustryDetail() {
                 </ul>
               </div>
             )}
-            <ConsultationCta compact />
             <Link to="/finder" className="btn-outline w-full">
               Build my checklist
             </Link>

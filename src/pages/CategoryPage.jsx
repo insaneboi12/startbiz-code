@@ -1,5 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
-import Seo from '../components/Seo';
+import Seo, { breadcrumbSchema } from '../components/Seo';
 import {
   brand,
   getMegaMenuById,
@@ -17,6 +17,10 @@ export default function CategoryPage() {
   }
 
   const services = getServicesByCategoryId(categoryId);
+  const jsonLd = breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: menu.label, path: menu.path },
+  ]);
 
   return (
     <div className="bg-brand-surface">
@@ -27,6 +31,8 @@ export default function CategoryPage() {
           .flatMap((g) => g.items)
           .slice(0, 8)
           .join(', ')}`}
+        path={menu.path}
+        jsonLd={jsonLd}
       />
 
       <section className="border-b border-[#dbdbdb] bg-white pt-[72px] sm:pt-20">

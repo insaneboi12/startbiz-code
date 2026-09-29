@@ -1,10 +1,10 @@
 name = "startbiz"
 compatibility_date = "2026-09-25"
 
-# Serve the CRA production build as static assets.
-# SPA client routes (e.g. /finder) are handled here — do NOT add public/_redirects
-# with `/* /index.html 200` (Cloudflare Workers rejects that as an infinite loop).
+# Static CRA build. Physical prerendered HTML shells (build/**/index.html) win for
+# crawlers; SPA fallback covers any remaining client routes. Do NOT add
+# public/_redirects with `/* /index.html 200`.
 [assets]
 directory = "./build"
 not_found_handling = "single-page-application"
-html_handling = "none"
+html_handling = "auto-trailing-slash"

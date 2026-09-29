@@ -68,12 +68,12 @@ export default function Navbar() {
             </svg>
           </button>
 
-          <a
-            href="#contact"
+          <Link
+            to="/finder"
             className="btn-primary ml-1 shrink-0 whitespace-nowrap px-3 py-2 text-[13px] 2xl:ml-2 2xl:px-5 2xl:py-2.5 2xl:text-sm"
           >
-            Get My Business Solution
-          </a>
+            Find My Business Requirements
+          </Link>
         </nav>
 
         <div className="ml-auto flex items-center gap-2 xl:hidden">
@@ -140,9 +140,9 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <a href="#contact" className="btn-primary mt-2">
-            Get My Business Solution
-          </a>
+          <Link to="/finder" className="btn-primary mt-2">
+            Find My Business Requirements
+          </Link>
           <a
             href={brand.phoneHref}
             className="mt-1 text-center text-sm font-semibold text-brand-primary"

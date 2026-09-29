@@ -1,6 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
-import Seo from '../components/Seo';
-import ConsultationCta from '../components/ConsultationCta';
+import Seo, { breadcrumbSchema, serviceSchema } from '../components/Seo';
 import {
   brand,
   getRelatedServices,
@@ -158,7 +157,7 @@ export default function ServiceDetail() {
 
   const related = getRelatedServices(service.slug, 3);
   const categoryPath =
-    megaMenus.find((m) => m.id === service.categoryId)?.path || '/#services';
+    megaMenus.find((m) => m.id === service.categoryId)?.path || '/';
 
   const pageTitle =
     service.seoTitle ||
@@ -170,12 +169,32 @@ export default function ServiceDetail() {
     ? service.keywords.join(', ')
     : undefined;
 
+  const servicePath = `/services/${service.slug}`;
+  const crumbs = [
+    { name: 'Home', path: '/' },
+    ...(service.categoryId
+      ? [{ name: service.category, path: categoryPath }]
+      : []),
+    { name: service.title, path: servicePath },
+  ];
+  const jsonLd = [
+    breadcrumbSchema(crumbs),
+    serviceSchema({
+      name: service.title,
+      description: pageDescription,
+      path: servicePath,
+      category: service.category,
+    }),
+  ];
+
   return (
     <div className="bg-brand-surface">
       <Seo
         title={pageTitle}
         description={pageDescription}
         keywords={pageKeywords}
+        path={servicePath}
+        jsonLd={jsonLd}
       />
 
       <section className="border-b border-[#dbdbdb] bg-white pt-[72px] sm:pt-20">
@@ -242,40 +261,10 @@ export default function ServiceDetail() {
                   WhatsApp
                 </a>
               </div>
-
-              {service.image ? (
-                <div className="mt-8 overflow-hidden rounded-xl border border-[#dbdbdb] bg-brand-muted p-3 lg:hidden">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="h-auto w-full object-contain"
-                  />
-                </div>
-              ) : null}
             </div>
 
-            <div className="space-y-4">
+            <div>
               <EnquiryCard service={service} />
-              {service.image ? (
-                <div className="hidden overflow-hidden rounded-xl border border-[#dbdbdb] bg-brand-muted p-3 lg:block">
-                  <img
-                    src={service.image}
-                    alt={`${service.title} — ${brand.name}`}
-                    className="h-auto w-full object-contain"
-                  />
-                </div>
-              ) : (
-                <div className="hidden rounded-xl border border-[#dbdbdb] bg-brand-muted p-6 text-center lg:block">
-                  <img
-                    src={brand.logo}
-                    alt=""
-                    className="mx-auto h-12 w-auto object-contain"
-                  />
-                  <p className="mt-3 text-sm font-semibold text-brand-text">
-                    {service.title}
-                  </p>
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -398,12 +387,6 @@ export default function ServiceDetail() {
               Call {brand.phone}
             </a>
           </div>
-        </div>
-      </section>
-
-      <section className="py-12 sm:py-16">
-        <div className="section-wrap">
-          <ConsultationCta compact />
         </div>
       </section>
 

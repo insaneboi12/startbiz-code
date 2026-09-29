@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import RequirementFinder from './RequirementFinder';
-import ConsultationCta from './ConsultationCta';
 import {
   askStartbizExamples,
   customerProcess,
@@ -21,23 +20,40 @@ import {
 import { industries } from '../data/industries';
 import { knowledgeArticles } from '../data/knowledge';
 import { brand, getWhatsAppUrl } from '../data/content';
+import {
+  IconBadge,
+  IconChat,
+  IconSearch,
+  IconStep,
+  pathwayIcons,
+  IconBuilding,
+} from './VisualIcons';
 
 function serviceHref(slug) {
   return slug.startsWith('/') ? slug : `/services/${slug}`;
 }
 
-function ChoiceChip({ active, children, onClick }) {
+function ChoiceChip({ active, children, onClick, hint }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-lg border px-3 py-2 text-left text-sm font-medium transition ${
+      className={`rounded-lg border px-3 py-2 text-left transition duration-200 ${
         active
-          ? 'border-brand-primary bg-brand-primary text-white'
-          : 'border-[#dbdbdb] bg-white text-brand-text hover:border-brand-accent'
+          ? 'border-brand-primary bg-brand-primary text-white shadow-soft'
+          : 'border-[#dbdbdb] bg-white text-brand-text hover:-translate-y-0.5 hover:border-brand-accent hover:shadow-soft'
       }`}
     >
-      {children}
+      <span className="block text-sm font-medium">{children}</span>
+      {hint ? (
+        <span
+          className={`mt-0.5 block text-xs leading-snug ${
+            active ? 'text-white/80' : 'text-brand-text-soft'
+          }`}
+        >
+          {hint}
+        </span>
+      ) : null}
     </button>
   );
 }
@@ -46,44 +62,88 @@ export function ProblemPathways() {
   return (
     <section id="problem" className="bg-white py-12 sm:py-16">
       <div className="section-wrap">
-        <p className="section-label">What are you trying to do?</p>
+        <p className="section-label">What are you looking to do?</p>
         <h2 className="heading mt-2 max-w-2xl text-2xl sm:text-3xl lg:text-4xl">
-          Starting or Growing a Business?
+          What Are You Looking to Do?
         </h2>
         <p className="body-muted mt-3 max-w-2xl text-sm sm:text-base">
           Get the right registrations, licences and business solutions — without
-          the confusion. Choose a path below instead of searching through a long
-          service list.
+          the confusion. Choose what you want to achieve. We&apos;ll help you
+          understand what you may need.
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {intentPathways.map((path) => (
-            <article
-              key={path.id}
-              className={`rounded-xl border p-5 sm:p-6 ${path.accent}`}
-            >
-              <h3 className="font-display text-lg font-semibold text-brand-text sm:text-xl">
-                {path.title}
-              </h3>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {path.items.map((item) => (
-                  <li key={`${path.id}-${item.label}`}>
-                    <Link
-                      to={serviceHref(item.slug)}
-                      className="inline-flex rounded-md border border-white/80 bg-white/90 px-2.5 py-1 text-xs font-semibold text-brand-primary transition hover:border-brand-accent hover:text-brand-accent"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                to={path.to}
-                className="mt-5 inline-flex text-sm font-semibold text-brand-primary hover:text-brand-accent"
+          {intentPathways.map((path) => {
+            const Icon = pathwayIcons[path.id] || IconBuilding;
+            return (
+              <article
+                key={path.id}
+                className={`group relative overflow-hidden rounded-xl border p-5 transition duration-300 hover:-translate-y-1 hover:shadow-soft sm:p-6 ${path.accent}`}
               >
-                {path.cta} →
+                <div
+                  className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-white/50 transition duration-300 group-hover:scale-125"
+                  aria-hidden
+                />
+                <IconBadge className="mb-4">
+                  <Icon />
+                </IconBadge>
+                <h3 className="relative font-display text-lg font-semibold text-brand-text sm:text-xl">
+                  {path.title}
+                </h3>
+                {path.description && (
+                  <p className="relative mt-2 text-sm text-brand-text-soft">
+                    {path.description}
+                  </p>
+                )}
+                <p className="relative mt-4 text-xs font-semibold uppercase tracking-wide text-brand-text-soft">
+                  Popular solutions
+                </p>
+                <ul className="relative mt-2 flex flex-wrap gap-2">
+                  {path.items.map((item) => (
+                    <li key={`${path.id}-${item.label}`}>
+                      <Link
+                        to={serviceHref(item.slug)}
+                        className="inline-flex rounded-md border border-white/80 bg-white/90 px-2.5 py-1 text-xs font-semibold text-brand-primary transition hover:border-brand-accent hover:text-brand-accent"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  to={path.to}
+                  className="relative mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary transition group-hover:gap-2 hover:text-brand-accent"
+                >
+                  {path.cta} <span aria-hidden>→</span>
+                </Link>
+              </article>
+            );
+          })}
+        </div>
+        <div className="group relative mt-8 overflow-hidden rounded-xl border border-[#dbdbdb] bg-brand-surface px-5 py-6 sm:px-7">
+          <div
+            className="pointer-events-none absolute -right-8 top-0 h-28 w-28 rounded-full bg-brand-accent/10"
+            aria-hidden
+          />
+          <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start">
+            <IconBadge>
+              <IconSearch />
+            </IconBadge>
+            <div>
+              <h3 className="font-display text-lg font-semibold text-brand-text sm:text-xl">
+                Not Sure What You Need?
+              </h3>
+              <p className="mt-2 max-w-2xl text-sm text-brand-text-soft sm:text-base">
+                Don&apos;t worry. Tell us about your business and we&apos;ll help
+                you identify the relevant registrations and business solutions.
+              </p>
+              <Link to="/finder" className="btn-primary mt-5">
+                Find My Business Requirements →
               </Link>
-            </article>
-          ))}
+              <p className="mt-3 text-xs text-brand-text-soft sm:text-sm">
+                Simple questions. Clear guidance. The right next step.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -121,14 +181,16 @@ export function SolutionFinderSection() {
   return (
     <section id="solution-finder" className="bg-brand-surface py-12 sm:py-16 lg:py-20">
       <div className="section-wrap">
-        <p className="section-label">Not sure what registration you need?</p>
-        <h2 className="heading mt-2 max-w-2xl text-2xl sm:text-3xl lg:text-4xl">
-          Don&apos;t worry. Tell us about your business.
+        <h2 className="heading max-w-3xl text-2xl sm:text-3xl lg:text-4xl">
+          Not Sure What Registration You Need?
         </h2>
+        <p className="mt-3 max-w-2xl font-display text-lg font-semibold leading-snug text-brand-text sm:text-xl lg:text-2xl">
+          Don&apos;t worry. Tell us about your business.
+        </p>
         <p className="body-muted mt-3 max-w-2xl text-sm sm:text-base">
-          Answer two questions. We&apos;ll suggest GST, MSME, Shop Act, FSSAI,
-          trademark or company registration options that often apply — then you
-          can talk to Startbiz to confirm.
+          Answer 2 simple questions and we&apos;ll suggest business
+          registrations, licences and solutions that may be relevant to you.
+          You&apos;ll get a starting point — not a complicated service list.
         </p>
 
         <form
@@ -137,19 +199,20 @@ export function SolutionFinderSection() {
         >
           <fieldset>
             <legend className="text-sm font-semibold text-brand-text sm:text-base">
-              What type of business are you planning?
+              1. What type of business are you planning?
             </legend>
             <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {solutionBusinessTypes.map((type) => (
                 <ChoiceChip
-                  key={type}
-                  active={businessType === type}
+                  key={type.label}
+                  active={businessType === type.label}
+                  hint={type.hint}
                   onClick={() => {
-                    setBusinessType(type);
+                    setBusinessType(type.label);
                     setSubmitted(false);
                   }}
                 >
-                  {type}
+                  {type.label}
                 </ChoiceChip>
               ))}
             </div>
@@ -157,7 +220,7 @@ export function SolutionFinderSection() {
 
           <fieldset className="mt-8">
             <legend className="text-sm font-semibold text-brand-text sm:text-base">
-              What do you want to do?
+              2. What do you want to do?
             </legend>
             <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {solutionGoals.map((item) => (
@@ -180,8 +243,12 @@ export function SolutionFinderSection() {
             className="btn-primary mt-8 w-full sm:w-auto"
             disabled={!businessType || !goal}
           >
-            Find My Required Registrations
+            Find My Business Requirements
           </button>
+          <p className="mt-3 text-xs text-brand-text-soft sm:text-sm">
+            We&apos;ll show you the registrations and business solutions that may
+            be relevant based on your answers.
+          </p>
         </form>
 
         {submitted && results.length > 0 && (
@@ -195,8 +262,9 @@ export function SolutionFinderSection() {
               to {goal.toLowerCase()}
             </h3>
             <p className="mt-2 text-sm text-brand-text-soft">
-              Guidance only — final requirements depend on your activity and
-              location. Talk to Startbiz to confirm.
+              Guidance only — these may apply based on your answers. Final
+              requirements depend on your activity and location. Talk to Startbiz
+              to confirm.
             </p>
             <ul className="mt-4 grid gap-2 sm:grid-cols-2">
               {results.map((item) => (
@@ -219,6 +287,9 @@ export function SolutionFinderSection() {
                 Get My Business Solution
               </a>
             </div>
+            <p className="mt-4 text-sm text-brand-text-soft">
+              Need confirmation? Talk to a Startbiz Business Expert.
+            </p>
           </div>
         )}
       </div>
@@ -258,13 +329,21 @@ export function JourneySection() {
           {journeySteps.map((step, index) => (
             <li
               key={step.n}
-              className="relative rounded-xl border border-[#dbdbdb] bg-brand-surface p-5"
+              className="group relative overflow-hidden rounded-xl border border-[#dbdbdb] bg-brand-surface p-5 transition duration-300 hover:-translate-y-1 hover:border-brand-accent hover:shadow-soft"
             >
-              <span className="text-xs font-bold text-brand-accent">{step.n}</span>
-              <h3 className="mt-2 font-semibold text-brand-text">{step.title}</h3>
-              <p className="mt-2 text-sm text-brand-text-soft">{step.text}</p>
+              <div
+                className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-brand-accent/10 transition group-hover:scale-125"
+                aria-hidden
+              />
+              <IconStep n={step.n} />
+              <h3 className="relative mt-3 font-semibold text-brand-text">
+                {step.title}
+              </h3>
+              <p className="relative mt-2 text-sm text-brand-text-soft">
+                {step.text}
+              </p>
               {index < journeySteps.length - 1 && (
-                <span className="mt-3 inline-block text-brand-accent lg:hidden">
+                <span className="relative mt-3 inline-block text-brand-accent lg:hidden">
                   ↓
                 </span>
               )}
@@ -280,10 +359,17 @@ export function AskStartbizSection() {
   return (
     <section id="ask-startbiz" className="bg-brand-surface py-12 sm:py-16">
       <div className="section-wrap">
-        <p className="section-label">Ask Startbiz</p>
-        <h2 className="heading mt-2 text-2xl sm:text-3xl lg:text-4xl">
-          Have a Business Question?
-        </h2>
+        <div className="flex items-start gap-3">
+          <IconBadge>
+            <IconChat />
+          </IconBadge>
+          <div>
+            <p className="section-label">Ask Startbiz</p>
+            <h2 className="heading mt-2 text-2xl sm:text-3xl lg:text-4xl">
+              Have a Business Question?
+            </h2>
+          </div>
+        </div>
         <p className="body-muted mt-3 max-w-2xl text-sm sm:text-base">
           Ask Startbiz. Change your mindset from &quot;Which service should I
           buy?&quot; to &quot;Startbiz can tell me what I need.&quot;
@@ -295,10 +381,18 @@ export function AskStartbizSection() {
                 href={getWhatsAppUrl(example)}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-start gap-3 rounded-xl border border-[#dbdbdb] bg-white px-4 py-3 text-sm text-brand-text transition hover:border-brand-accent hover:shadow-soft sm:text-base"
+                className="group flex items-start gap-3 rounded-xl border border-[#dbdbdb] bg-white px-4 py-3 text-sm text-brand-text transition duration-300 hover:-translate-y-0.5 hover:border-brand-accent hover:shadow-soft sm:text-base"
               >
-                <span className="mt-0.5 text-brand-accent">“</span>
-                <span>{example}</span>
+                <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-muted text-sm font-bold text-brand-primary transition group-hover:bg-brand-primary group-hover:text-white">
+                  ?
+                </span>
+                <span className="flex-1">{example}</span>
+                <span
+                  className="mt-0.5 shrink-0 text-brand-primary opacity-0 transition group-hover:opacity-100"
+                  aria-hidden
+                >
+                  →
+                </span>
               </a>
             </li>
           ))}
@@ -351,7 +445,6 @@ export function BenefitsPreview() {
             </Link>
           </div>
         </div>
-        <ConsultationCta compact />
       </div>
     </section>
   );
@@ -581,20 +674,38 @@ export function FaqSection() {
       <div className="section-wrap">
         <p className="section-label">FAQ</p>
         <h2 className="heading mt-2 text-2xl sm:text-3xl">
-          Common questions from people starting out
+          Your Business Questions, Answered
         </h2>
+        <p className="body-muted mt-3 max-w-2xl text-sm sm:text-base">
+          Starting a business raises many questions. Find straightforward answers
+          about registrations, licences, business structures and compliance.
+        </p>
         <div className="mt-8 space-y-3">
           {siteFaqs.map((item) => (
             <details
               key={item.q}
-              className="rounded-xl border border-[#dbdbdb] bg-white px-5 py-4"
+              className="group rounded-xl border border-[#dbdbdb] bg-white px-5 py-4 transition open:border-brand-accent/40 open:shadow-soft"
             >
-              <summary className="cursor-pointer font-semibold text-brand-text">
-                {item.q}
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-brand-text marker:content-none [&::-webkit-details-marker]:hidden">
+                <span>{item.q}</span>
+                <span
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-muted text-sm font-bold text-brand-primary transition group-open:rotate-45 group-open:bg-brand-primary group-open:text-white"
+                  aria-hidden
+                >
+                  +
+                </span>
               </summary>
               <p className="mt-3 text-sm leading-relaxed text-brand-text-soft">
                 {item.a}
               </p>
+              {item.to ? (
+                <Link
+                  to={item.to}
+                  className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary hover:text-brand-accent"
+                >
+                  {item.linkLabel || 'Learn more'} <span aria-hidden>→</span>
+                </Link>
+              ) : null}
             </details>
           ))}
         </div>
@@ -605,24 +716,44 @@ export function FaqSection() {
 
 export function FinalCta() {
   return (
-    <section className="bg-brand-primary py-12 text-white sm:py-16">
-      <div className="section-wrap text-center text-white">
+    <section className="relative overflow-hidden bg-brand-primary py-12 text-white sm:py-16">
+      <div
+        className="pointer-events-none absolute -left-16 top-0 h-48 w-48 rounded-full bg-white/5"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -bottom-20 -right-10 h-56 w-56 rounded-full bg-brand-accent/20"
+        aria-hidden
+      />
+      <div className="section-wrap relative text-center text-white">
         <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
           Startbiz — From Idea to Business Growth
         </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-white sm:text-base">
-          We&apos;re with you. Tell us your business requirement. We&apos;ll help
-          you find the right registration, licence or business solution — for new
-          entrepreneurs and existing business owners across Maharashtra.
+        <p className="mx-auto mt-2 text-lg font-medium text-white/95 sm:text-xl">
+          We&apos;re With You.
+        </p>
+        <p className="mx-auto mt-3 max-w-2xl text-sm text-white sm:text-base">
+          Whether you&apos;re starting a new business, running an existing
+          business or planning your next stage of growth, Startbiz helps you
+          understand your requirements and find the right next step.
+        </p>
+        <p className="mx-auto mt-3 max-w-2xl text-sm text-white/90 sm:text-base">
+          You don&apos;t need to know which registration or licence you need.
+          Tell us about your business and we&apos;ll help you explore the
+          relevant registrations, licences and business solutions for your
+          situation.
         </p>
         <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link to="/finder" className="btn-primary !text-white">
-            Find My Business Solution
+            Find My Business Requirements
           </Link>
           <a href="#contact" className="btn-ghost-light !text-white">
             Talk to a Business Expert
           </a>
         </div>
+        <p className="mx-auto mt-4 max-w-md text-xs text-white/80">
+          Answer a few simple questions and get a personalised business roadmap.
+        </p>
       </div>
     </section>
   );

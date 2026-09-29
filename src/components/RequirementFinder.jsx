@@ -7,7 +7,6 @@ import {
   needPrompts,
 } from '../data/finder';
 import { getWhatsAppUrl } from '../data/content';
-import ConsultationCta from './ConsultationCta';
 
 const STORAGE_KEY = 'startbiz.finder.v2';
 const empty = Object.fromEntries(finderQuestions.map((q) => [q.id, '']));
@@ -162,6 +161,12 @@ function ItemList({ title, items, tone }) {
       : tone === 'recommended'
         ? 'border-brand-accent/30 bg-[#fff8f1]'
         : 'border-[#dbdbdb] bg-white';
+  const mark =
+    tone === 'essential'
+      ? 'bg-brand-green text-white'
+      : tone === 'recommended'
+        ? 'bg-brand-accent text-white'
+        : 'bg-brand-primary/15 text-brand-primary';
   return (
     <div>
       <h3 className="text-sm font-bold uppercase tracking-wider text-brand-primary">
@@ -170,13 +175,23 @@ function ItemList({ title, items, tone }) {
       <ul className="mt-3 space-y-2">
         {items.map((item) => (
           <li key={item.slug} className={`rounded-xl border p-4 ${color}`}>
-            <Link
-              to={`/services/${item.slug}`}
-              className="font-semibold text-brand-text hover:text-brand-primary"
-            >
-              {item.title}
-            </Link>
-            <p className="mt-1 text-sm text-brand-text-soft">{item.reason}</p>
+            <div className="flex items-start gap-2.5">
+              <span
+                className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] font-bold ${mark}`}
+                aria-hidden
+              >
+                ✓
+              </span>
+              <div className="min-w-0">
+                <Link
+                  to={`/services/${item.slug}`}
+                  className="font-semibold text-brand-text hover:text-brand-primary"
+                >
+                  {item.title}
+                </Link>
+                <p className="mt-1 text-sm text-brand-text-soft">{item.reason}</p>
+              </div>
+            </div>
           </li>
         ))}
       </ul>
@@ -191,11 +206,24 @@ function Results({ roadmap, onReset, onPrint }) {
 
   return (
     <div className="print:block">
-      <p className="section-label">Your roadmap</p>
-      <h2 className="heading mt-2 text-2xl sm:text-3xl">
-        Business registration roadmap
-      </h2>
-      <p className="mt-2 text-sm text-brand-text-soft">Based on the details you shared.</p>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="section-label">Your roadmap</p>
+          <h2 className="heading mt-2 text-2xl sm:text-3xl">
+            Business registration roadmap
+          </h2>
+          <p className="mt-2 text-sm text-brand-text-soft">
+            Based on the details you shared.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onReset}
+          className="btn-outline shrink-0 print:hidden"
+        >
+          Start over
+        </button>
+      </div>
 
       <div className="mt-5 rounded-xl border border-brand-primary/20 bg-brand-muted p-5">
         <p className="text-xs font-semibold uppercase tracking-wider text-brand-accent">
@@ -253,7 +281,7 @@ function Results({ roadmap, onReset, onPrint }) {
         </p>
       </div>
 
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap print:hidden">
         <a href={wa} target="_blank" rel="noreferrer" className="btn-primary w-full sm:w-auto">
           Get free consultation
         </a>
@@ -263,9 +291,6 @@ function Results({ roadmap, onReset, onPrint }) {
         <button type="button" onClick={onReset} className="btn-outline w-full sm:w-auto">
           Start over
         </button>
-      </div>
-      <div className="mt-6 print:hidden">
-        <ConsultationCta compact />
       </div>
     </div>
   );
