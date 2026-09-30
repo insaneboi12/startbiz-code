@@ -29,6 +29,9 @@ const footerColumns = [
       { label: 'Why Startbiz', to: '/#why' },
       { label: 'FAQs', to: '/#faq' },
       { label: 'Contact', to: '/#contact' },
+      { label: 'Privacy Policy', to: '/privacy-policy' },
+      { label: 'Terms & Conditions', to: '/terms-and-conditions' },
+      { label: 'Refund & Cancellation', to: '/refund-cancellation-policy' },
     ],
   },
 ];
@@ -123,6 +126,26 @@ export default function Footer() {
             compliance support. Content on this website is for general
             informational purposes.
           </p>
+          <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs">
+            <li>
+              <Link to="/privacy-policy" className="hover:text-white">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link to="/terms-and-conditions" className="hover:text-white">
+                Terms &amp; Conditions
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/refund-cancellation-policy"
+                className="hover:text-white"
+              >
+                Refund &amp; Cancellation
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
     </footer>

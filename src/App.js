@@ -14,6 +14,7 @@ import KnowledgeArticle from './pages/KnowledgeArticle';
 import IndustriesPage from './pages/IndustriesPage';
 import IndustryDetail from './pages/IndustryDetail';
 import NotFound from './pages/NotFound';
+import LegalPage from './pages/LegalPage';
 
 function App() {
   return (
@@ -32,6 +33,18 @@ function App() {
             <Route path="/industries/:slug" element={<IndustryDetail />} />
             <Route path="/category/:categoryId" element={<CategoryPage />} />
             <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route
+              path="/privacy-policy"
+              element={<LegalPage docKey="privacy" />}
+            />
+            <Route
+              path="/refund-cancellation-policy"
+              element={<LegalPage docKey="refund" />}
+            />
+            <Route
+              path="/terms-and-conditions"
+              element={<LegalPage docKey="terms" />}
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <ContactForm />

@@ -80,6 +80,27 @@ function collectRoutes() {
         'Typical registration paths for restaurants, cloud kitchens, ecommerce, freelancers and more across Maharashtra.',
       priority: '0.8',
     },
+    {
+      path: '/privacy-policy',
+      title: 'Privacy Policy | startbiz.in',
+      description:
+        'How Startbiz.in collects, uses, stores and protects information provided through our website and service channels.',
+      priority: '0.4',
+    },
+    {
+      path: '/refund-cancellation-policy',
+      title: 'Refund & Cancellation Policy | startbiz.in',
+      description:
+        'Refund and cancellation terms for Startbiz.in business registration and professional assistance services.',
+      priority: '0.4',
+    },
+    {
+      path: '/terms-and-conditions',
+      title: 'Terms & Conditions | startbiz.in',
+      description:
+        'Terms governing use of the Startbiz.in website and business registration, compliance and related services.',
+      priority: '0.4',
+    },
   ];
 
   const categoryBlocks = [
